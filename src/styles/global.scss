@@ -4,11 +4,9 @@
 
 :root {
   font-family: "SF Pro Display", sans-serif;
-  line-height: 1.5;
   font-weight: 400;
   font-size: 15px;
   line-height: 21px;
-  letter-spacing: 0%;
   color: var(--text-color);
   background-color: var(--color-gray-bg);
 
@@ -20,4 +18,12 @@
 
 body {
   min-height: 100vh;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
