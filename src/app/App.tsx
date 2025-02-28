@@ -1,13 +1,13 @@
 import styles from "./App.module.scss";
-import CallsTable from "../components/ContentWrapper/CallsTable/CallsTable";
-import ContentWrapper from "../components/ContentWrapper/ContentWrapper";
+import ContentWrapper from "../components/containers/ContentWrapper/ContentWrapper";
+import CallsContainer from "../components/containers/CallsContainer";
 
 function App() {
   return (
     <>
       <main className={styles["main"]}>
         <ContentWrapper>
-          <CallsTable />
+          <CallsContainer />
         </ContentWrapper>
       </main>
     </>

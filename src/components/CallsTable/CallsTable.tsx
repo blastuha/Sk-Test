@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./CallsTable.module.scss";
+import { Call } from "../../models";
 
-const CallsTable = () => {
+const CallsTable = ({ calls }: { calls: Call[] }) => {
   return (
     <table className={styles["calls-table"]}>
       <thead className={styles["calls-table__head"]}>
