@@ -1,6 +1,6 @@
-@import "./fonts.scss";
-@import "./variables.scss";
-@import "./reset.scss";
+@forward "fonts";
+@forward "variables";
+@forward "reset";
 
 :root {
   font-family: "SF Pro Display", sans-serif;

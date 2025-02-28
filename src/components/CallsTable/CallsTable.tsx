@@ -1,97 +1,47 @@
 import React from "react";
 import styles from "./CallsTable.module.scss";
-import { Call } from "../../models";
+import { Call } from "@/models";
+import TableHeader from "./TableHeader/TableHeader";
 
 const CallsTable = ({ calls }: { calls: Call[] }) => {
+  if (calls.length === 0) {
+    return <div>Звонков нет</div>;
+  }
+
   return (
     <table className={styles["calls-table"]}>
-      <thead className={styles["calls-table__head"]}>
-        <tr className={styles["calls-table__row"]}>
-          <th className={styles["calls-table__header"]}>Тип</th>
-          <th className={styles["calls-table__header"]}>Время</th>
-          <th className={styles["calls-table__header"]}>Сотрудник</th>
-          <th className={styles["calls-table__header"]}>Звонок</th>
-          <th className={styles["calls-table__header"]}>Источник</th>
-          <th className={styles["calls-table__header"]}>Оценка</th>
-          <th className={styles["calls-table__header"]}>Длительность</th>
-        </tr>
-      </thead>
+      <TableHeader />
       <tbody className={styles["calls-table__body"]}>
-        <tr className={styles["calls-table__row"]}>
-          <td className={styles["calls-table__cell"]}>19:00</td>
-          <td className={styles["calls-table__cell"]}>19:00</td>
-          <td className={styles["calls-table__cell"]}>
-            <div className={styles["calls-table__user"]}>
-              <img
-                src="/images/avatar1.jpg"
-                alt="Avatar"
-                className={styles["calls-table__avatar"]}
-              />
-              <span className={styles["calls-table__name"]}>Иванов Иван</span>
-            </div>
-          </td>
-          <td className={styles["calls-table__cell"]}>+7 (965) 537-12-12</td>
-          <td className={styles["calls-table__cell"]}>Robusta</td>
-          <td className={styles["calls-table__cell"]}>
-            <span
-              className={`${styles["calls-table__status"]} ${styles["calls-table__status--success"]}`}
-            >
-              Отлично
-            </span>
-          </td>
-          <td className={styles["calls-table__cell"]}>12:06</td>
-        </tr>
-
-        <tr className={styles["calls-table__row"]}>
-          <td className={styles["calls-table__cell"]}>17:30</td>
-          <td className={styles["calls-table__cell"]}>
-            <div className={styles["calls-table__user"]}>
-              <img
-                src="/images/avatar2.jpg"
-                alt="Avatar"
-                className={styles["calls-table__avatar"]}
-              />
-              <span className={styles["calls-table__name"]}>Петров Петр</span>
-            </div>
-          </td>
-          <td className={styles["calls-table__cell"]}>+7 (950) 123-45-67</td>
-          <td className={styles["calls-table__cell"]}>Robusta</td>
-          <td className={styles["calls-table__cell"]}>
-            <span
-              className={`${styles["calls-table__status"]} ${styles["calls-table__status--error"]}`}
-            >
-              Скрипт не используется
-            </span>
-          </td>
-          <td className={styles["calls-table__cell"]}>12:06</td>
-        </tr>
-
-        <tr className={styles["calls-table__row"]}>
-          <td className={styles["calls-table__cell"]}>15:27</td>
-          <td className={styles["calls-table__cell"]}>
-            <div className={styles["calls-table__user"]}>
-              <img
-                src="/images/avatar3.jpg"
-                alt="Avatar"
-                className={styles["calls-table__avatar"]}
-              />
-              <span className={styles["calls-table__name"]}>Сидоров Сидор</span>
-            </div>
-          </td>
-          <td className={styles["calls-table__cell"]}>+7 (999) 666-77-88</td>
-          <td className={styles["calls-table__cell"]}>Google</td>
-          <td className={styles["calls-table__cell"]}>
-            <span
-              className={`${styles["calls-table__status"]} ${styles["calls-table__status--neutral"]}`}
-            >
-              Плохо
-            </span>
-          </td>
-          <td className={styles["calls-table__cell"]}>10:15</td>
-        </tr>
+        {calls.map((call) => (
+          <tr key={call.id} className={styles["calls-table__row"]}>
+            <td className={styles["calls-table__cell"]}>
+              {call.in_out === 1 ? "Входящий" : "Исходящий"}
+            </td>
+            <td className={styles["calls-table__cell"]}>{call.date}</td>
+            <td className={styles["calls-table__cell"]}>
+              <div className={styles["calls-table__user"]}>
+                <img
+                  src={call.person_avatar}
+                  alt={`Avatar of ${call.person_name} ${call.person_surname}`}
+                  className={styles["calls-table__avatar"]}
+                />
+                <span className={styles["calls-table__name"]}>
+                  {call.person_name} {call.person_surname}
+                </span>
+              </div>
+            </td>
+            <td className={styles["calls-table__cell"]}>{call.from_number}</td>
+            <td className={styles["calls-table__cell"]}>
+              {call.source || "Неизвестно"}
+            </td>
+            <td className={styles["calls-table__cell"]}>{call.status}</td>
+            <td className={styles["calls-table__cell"]}>{call.time}s</td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
 };
 
-export default CallsTable;
+export default React.memo(CallsTable);
+// защищаем от лишнего ререндера
