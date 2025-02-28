@@ -1,0 +1,23 @@
+@import "./fonts.scss";
+@import "./variables.scss";
+@import "./reset.scss";
+
+:root {
+  font-family: "SF Pro Display", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 21px;
+  letter-spacing: 0%;
+  color: var(--text-color);
+  background-color: var(--color-gray-bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+}

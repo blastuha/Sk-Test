@@ -1,0 +1,32 @@
+:root {
+  /* UI */
+  --ui-icon: #adbfdf;
+  --ui-accent: #002cfb;
+  --ui-text: #122945;
+  --ui-red: #ea1a4f;
+  --ui-green: #28a879;
+  --ui-text-header: #899cb1;
+  --ui-light-green: #dbf8ef;
+  --ui-light-red: #fee9ef;
+  --ui-secondary: #d8e4fb;
+  --ui-icon-alt: #adbfdf;
+  --ui-text-green: #00a775;
+
+  /* Общие */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  // --color-gray-bg: #eaf0fa;
+  --color-gray-bg: #f1f4f9;
+  --color-gray-dark: #2b2d33;
+
+  /* Дополнительные */
+  --color-purple: #7b61ff;
+  --color-violet: #9747ff;
+  --color-red: #ea1a4f;
+  --color-blue: #015ef5;
+  --color-light-blue: #dee4ff;
+
+  /* Глобальные */
+  --border-color: var(--ui-icon);
+  --text-color: var(--ui-text);
+}
