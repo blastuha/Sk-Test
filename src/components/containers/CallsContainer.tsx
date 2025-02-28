@@ -13,7 +13,7 @@ const CallsContainer = () => {
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading calls</div>;
 
-  return <CallsTable calls={callsData?.results || []} />;
+  return <CallsTable calls={callsData || []} />;
 };
 
 export default CallsContainer;

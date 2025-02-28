@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchCalls } from "../api/callsApi";
-import { CallType } from "../models/call/callType";
+import { CallFilterType } from "../models/call/callFilterType";
 
 export const useGetCalls = (
   dateStart: string,
   dateEnd: string,
-  inOut: CallType
+  inOut: CallFilterType
 ) => {
   return useQuery({
     queryKey: ["calls", dateStart, dateEnd, inOut],

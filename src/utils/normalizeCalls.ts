@@ -1,6 +1,7 @@
-import { Call } from "../models";
+import { Call, RawCall } from "../models";
 
-export const normalizeCalls = (callsFromApi: any[]): Call[] => {
+// конвертируем ответ, чтобы использовать только нужные поля
+export const normalizeCalls = (callsFromApi: RawCall[]): Call[] => {
   return callsFromApi.map((call) => ({
     id: call.id,
     in_out: call.in_out,

@@ -1,15 +1,16 @@
-import { Call } from "../models";
+import { Call, RawCall, CallFilterType } from "../models";
+import { normalizeCalls } from "../utils/normalizeCalls";
 import { apiClient } from "./axiosInstance";
 
 export interface CallResponse {
   total_rows: string;
-  results: any[]; // 👈 Указываем, что API возвращает "сырые" данные
+  results: RawCall[];
 }
 
 export const fetchCalls = async (
   dateStart: string,
   dateEnd: string,
-  inOut: 0 | 1 | ""
+  inOut: CallFilterType
 ): Promise<Call[]> => {
   const response = await apiClient.post<CallResponse>("/getList", {
     date_start: dateStart,
@@ -17,6 +18,6 @@ export const fetchCalls = async (
     in_out: inOut,
   });
 
-  // Нормализуем сразу здесь, чтобы в useGetCalls данные были чистыми
+  // конвертируем ответ, чтобы использовать только нужные поля
   return normalizeCalls(response.data.results);
 };
