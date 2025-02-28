@@ -1,5 +1,6 @@
-import { Call } from "@/models";
 import styles from "./TableRow.module.scss";
+import { Call } from "@/models";
+import { formatDateToTime } from "@/utils/formatDateToTime";
 
 const TableRow = ({ call }: { call: Call }) => {
   const {
@@ -19,12 +20,12 @@ const TableRow = ({ call }: { call: Call }) => {
       <td className={styles["calls-table__cell"]}>
         {in_out === 1 ? "Входящий" : "Исходящий"}
       </td>
-      <td className={styles["calls-table__cell"]}>{date}</td>
+      <td className={styles["calls-table__cell"]}>{formatDateToTime(date)}</td>
       <td className={styles["calls-table__cell"]}>
         <div className={styles["calls-table__user"]}>
           <img
             src={person_avatar}
-            alt={`Avatar of ${person_name} ${person_surname}`}
+            alt="avatar"
             className={styles["calls-table__avatar"]}
           />
           <span className={styles["calls-table__name"]}>
@@ -33,9 +34,9 @@ const TableRow = ({ call }: { call: Call }) => {
         </div>
       </td>
       <td className={styles["calls-table__cell"]}>{from_number}</td>
-      <td className={styles["calls-table__cell"]}>{source || "—"}</td>
+      <td className={styles["calls-table__cell"]}>{source}</td>
       <td className={styles["calls-table__cell"]}>{status}</td>
-      <td className={styles["calls-table__cell"]}>{time}s</td>
+      <td className={styles["calls-table__cell"]}>{time}</td>
     </tr>
   );
 };

@@ -6,7 +6,7 @@ const CallsContainer = () => {
     data: callsData,
     isLoading,
     isError,
-  } = useGetCalls("2024-02-01", "2024-02-28", 1);
+  } = useGetCalls("2024-02-01", "2024-02-28", "");
 
   console.log("data", callsData);
 

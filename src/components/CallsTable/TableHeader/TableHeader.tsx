@@ -1,4 +1,4 @@
-import styles from "./CallsTable.module.scss";
+import styles from "./TableHeader.module.scss";
 import { CALLS_TABLE_HEADERS } from "@/constants";
 
 const TableHeader = () => {
