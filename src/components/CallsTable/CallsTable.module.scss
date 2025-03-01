@@ -1,10 +1,11 @@
 .calls-table-container {
-  padding: 0 40px;
+  padding: 0 0 0 40px;
   background: var(--color-white);
   border-radius: 8px;
 }
 
 .calls-table {
+  // table-layout: auto;
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;

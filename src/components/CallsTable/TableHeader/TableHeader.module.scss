@@ -1,14 +1,16 @@
 .table-header {
+  width: 100%;
 }
 
 .table-header__row {
+  width: 100%;
   position: relative;
 
   &::after {
     content: "";
     position: absolute;
     left: 0;
-    right: -40px;
+    right: 0px;
     bottom: 0;
     height: 1px;
     background: #e0e6ee;
@@ -27,6 +29,7 @@
 /* Фиксированные ширины */
 .table-header__cell:nth-child(1) {
   width: 54px; /* Тип */
+  // padding-left: 40px;
 }
 
 .table-header__cell:nth-child(2) {
@@ -50,6 +53,7 @@
 }
 
 .table-header__cell:nth-child(7) {
-  width: 88px; /* Длительность */
+  width: 128px; /* Длительность */
   text-align: left;
+  padding-right: 40px;
 }
