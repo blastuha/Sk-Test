@@ -1,12 +1,55 @@
-.calls-table {
-  &__head {
+// .table-header {
+// }
+
+.table-header__row {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: -40px;
+    bottom: 0;
+    height: 1px;
+    background: #e0e6ee;
   }
-  &__header {
-    text-align: left;
-    padding: 12px 16px;
-    font-size: 14px;
-    color: #899cb1;
-    font-weight: 500;
-    border-bottom: 1px solid #e0e6ee;
-  }
+}
+
+.table-header__cell {
+  box-sizing: border-box;
+  text-align: left;
+  padding: 24px 0 20px 0;
+  font-size: 14px;
+  color: #899cb1;
+  font-weight: 500;
+}
+
+/* Фиксированные ширины */
+.table-header__cell:nth-child(1) {
+  width: 54px; /* Тип */
+}
+
+.table-header__cell:nth-child(2) {
+  width: 88px; /* Время */
+}
+
+.table-header__cell:nth-child(3) {
+  width: 129px; /* Сотрудник */
+}
+
+.table-header__cell:nth-child(4) {
+  width: 325px; /* Звонок */
+}
+
+.table-header__cell:nth-child(5) {
+  width: 214px; /* Источник */
+}
+
+.table-header__cell:nth-child(6) {
+  width: 461px; /* Оценка */
+}
+
+.table-header__cell:nth-child(7) {
+  width: 88px; /* Длительность */
+  text-align: left;
 }

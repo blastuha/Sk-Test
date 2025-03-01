@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchCalls } from "../api/callsApi";
-import { CallFilterType } from "../models/call/callFilterType";
+import { fetchCalls } from "@/api/fetchCalls";
+import { CallFilterType } from "@/models";
 
 export const useGetCalls = (
   dateStart: string,

@@ -1,7 +1,13 @@
+.calls-table-container {
+  padding: 0 40px;
+  background: var(--color-white);
+  border-radius: 8px;
+}
+
 .calls-table {
+  table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
-  background: var(--color-white);
 
   &__head {
     // background-color: #f1f4f9;

@@ -1,6 +1,7 @@
 import styles from "./TableRow.module.scss";
 import { Call } from "@/models";
 import { formatDateToTime } from "@/utils/formatDateToTime";
+import CallTypeIcon from "@/components/ui/CallTypeIcon/CallTypeIcon";
 
 const TableRow = ({ call }: { call: Call }) => {
   const {
@@ -15,10 +16,11 @@ const TableRow = ({ call }: { call: Call }) => {
     person_name,
     person_surname,
   } = call;
+
   return (
     <tr key={id} className={styles["calls-table__row"]}>
       <td className={styles["calls-table__cell"]}>
-        {in_out === 1 ? "Входящий" : "Исходящий"}
+        <CallTypeIcon type={in_out} status={status} />
       </td>
       <td className={styles["calls-table__cell"]}>{formatDateToTime(date)}</td>
       <td className={styles["calls-table__cell"]}>
@@ -34,7 +36,7 @@ const TableRow = ({ call }: { call: Call }) => {
         </div>
       </td>
       <td className={styles["calls-table__cell"]}>{from_number}</td>
-      <td className={styles["calls-table__cell"]}>{source}</td>
+      <td className={styles["calls-table__cell"]}>{source || "—"}</td>
       <td className={styles["calls-table__cell"]}>{status}</td>
       <td className={styles["calls-table__cell"]}>{time}</td>
     </tr>

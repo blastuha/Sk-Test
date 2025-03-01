@@ -10,16 +10,17 @@ const CallsTable = ({ calls }: { calls: Call[] }) => {
   }
 
   return (
-    <table className={styles["calls-table"]}>
-      <TableHeader />
-      <tbody className={styles["calls-table__body"]}>
-        {calls.map((call) => (
-          <TableRow call={call} />
-        ))}
-      </tbody>
-    </table>
+    <div className={styles["calls-table-container"]}>
+      <table className={styles["calls-table"]}>
+        <TableHeader />
+        <tbody className={styles["calls-table__body"]}>
+          {calls.map((call) => (
+            <TableRow key={call.id} call={call} />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
 export default React.memo(CallsTable);
-// защищаем от лишнего ререндера

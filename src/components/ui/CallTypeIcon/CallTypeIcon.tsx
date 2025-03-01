@@ -1,7 +1,7 @@
-import incomingIcon from "@/assets/callTypes/incoming.svg";
-import outgoingIcon from "@/assets/callTypes/outgoing.svg";
-import missedIcon from "@/assets/callTypes/missed.svg";
-import failedIcon from "@/assets/callTypes/failed.svg";
+import incomingIcon from "@assets/icons/callTypes/incoming.svg";
+import outgoingIcon from "@assets/icons/callTypes/outgoing.svg";
+import missedIcon from "@assets/icons/callTypes/missed.svg";
+import failedIcon from "@assets/icons/callTypes/outgoing.svg";
 import styles from "./CallTypeIcon.module.scss";
 
 const CallTypeIcon = ({ type, status }: { type: number; status: string }) => {

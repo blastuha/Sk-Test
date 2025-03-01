@@ -3,14 +3,10 @@ import { CALLS_TABLE_HEADERS } from "@/constants";
 
 const TableHeader = () => {
   return (
-    <thead className={styles["calls-table__head"]}>
-      <tr className={styles["calls-table__row"]}>
+    <thead className={styles["table-header"]}>
+      <tr className={styles["table-header__row"]}>
         {CALLS_TABLE_HEADERS.map((header) => (
-          <th
-            key={header}
-            scope="col"
-            className={styles["calls-table__header"]}
-          >
+          <th key={header} scope="col" className={styles["table-header__cell"]}>
             {header}
           </th>
         ))}
