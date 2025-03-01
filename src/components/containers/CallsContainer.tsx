@@ -1,4 +1,4 @@
-import { useGetCalls } from "../../hooks/useGetCalls";
+import { useGetCalls } from "@/hooks/useGetCalls";
 import CallsTable from "../CallsTable/CallsTable";
 
 const CallsContainer = () => {

@@ -13,8 +13,8 @@ const TableRow = ({ call }: { call: Call }) => {
     status,
     time,
     person_avatar,
-    person_name,
-    person_surname,
+    // person_name,
+    // person_surname,
   } = call;
 
   return (
@@ -30,13 +30,13 @@ const TableRow = ({ call }: { call: Call }) => {
             alt="avatar"
             className={styles["calls-table__avatar"]}
           />
-          <span className={styles["calls-table__name"]}>
+          {/* <span className={styles["calls-table__name"]}>
             {person_name} {person_surname}
-          </span>
+          </span> */}
         </div>
       </td>
       <td className={styles["calls-table__cell"]}>{from_number}</td>
-      <td className={styles["calls-table__cell"]}>{source || "—"}</td>
+      <td className={styles["calls-table__cell"]}>{source}</td>
       <td className={styles["calls-table__cell"]}>{status}</td>
       <td className={styles["calls-table__cell"]}>{time}</td>
     </tr>

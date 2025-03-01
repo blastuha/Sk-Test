@@ -1,5 +1,5 @@
-import { Call, RawCall, CallFilterType } from "../models";
-import { normalizeCalls } from "../utils/normalizeCalls";
+import { Call, CallFilterType, RawCall } from "@/models";
+import { normalizeCalls } from "@/utils/normalizeCalls";
 import { apiClient } from "./axiosInstance";
 
 export interface CallResponse {

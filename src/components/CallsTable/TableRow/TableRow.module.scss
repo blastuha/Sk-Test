@@ -7,48 +7,10 @@
 }
 
 .calls-table__cell {
-  padding: 12px 16px;
+  height: 65px;
+  box-sizing: border-box;
+  text-align: left;
   font-size: 14px;
   color: #122945;
   vertical-align: middle;
-}
-
-.calls-table__user {
-  display: flex;
-  align-items: center;
-}
-
-.calls-table__avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-right: 8px;
-  object-fit: cover;
-}
-
-.calls-table__name {
-  font-weight: 500;
-}
-
-.calls-table__status {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
-
-  &--success {
-    background-color: #dbf8ef;
-    color: #28a879;
-  }
-
-  &--error {
-    background-color: #fee9ef;
-    color: #ea1a4f;
-  }
-
-  &--neutral {
-    background-color: #d8e4fb;
-    color: #122945;
-  }
 }
