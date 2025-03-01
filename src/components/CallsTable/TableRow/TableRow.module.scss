@@ -1,8 +1,19 @@
 .calls-table__row {
+  position: relative;
   transition: background 0.3s;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 40px;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--ui-border-gray);
   }
 }
 
@@ -13,4 +24,36 @@
   font-size: 14px;
   color: #122945;
   vertical-align: middle;
+}
+
+/* Фиксированные ширины */
+.calls-table__cell:nth-child(1) {
+  width: 94px; /* Тип */
+  padding-left: 40px;
+}
+
+.calls-table__cell:nth-child(2) {
+  width: 88px; /* Время */
+}
+
+.calls-table__cell:nth-child(3) {
+  width: 129px; /* Сотрудник */
+}
+
+.calls-table__cell:nth-child(4) {
+  width: 325px; /* Звонок */
+}
+
+.calls-table__cell:nth-child(5) {
+  width: 214px; /* Источник */
+}
+
+.calls-table__cell:nth-child(6) {
+  width: 461px; /* Оценка */
+}
+
+.calls-table__cell:nth-child(7) {
+  width: 128px; /* Длительность */
+  text-align: left;
+  padding-right: 40px;
 }

@@ -9,15 +9,16 @@
   &::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0px;
+    left: 40px;
+    right: 0;
     bottom: 0;
     height: 1px;
-    background: #e0e6ee;
+    background: var(--ui-border-gray);
   }
 }
 
 .table-header__cell {
+  position: relative;
   box-sizing: border-box;
   text-align: left;
   padding: 24px 0 20px 0;
@@ -27,33 +28,53 @@
 }
 
 /* Фиксированные ширины */
+/* Тип */
 .table-header__cell:nth-child(1) {
-  width: 54px; /* Тип */
-  // padding-left: 40px;
+  width: 94px;
+  padding-left: 40px;
 }
 
+/* Время */
 .table-header__cell:nth-child(2) {
-  width: 88px; /* Время */
+  width: 88px;
 }
 
+/* Сотрудник */
 .table-header__cell:nth-child(3) {
-  width: 129px; /* Сотрудник */
+  width: 129px;
 }
 
+/* Звонок */
 .table-header__cell:nth-child(4) {
-  width: 325px; /* Звонок */
+  width: 325px;
 }
 
+/* Источник */
 .table-header__cell:nth-child(5) {
-  width: 214px; /* Источник */
+  width: 214px;
 }
 
+/* Оценка */
 .table-header__cell:nth-child(6) {
-  width: 461px; /* Оценка */
+  width: 461px;
 }
 
+/* Длительность */
 .table-header__cell:nth-child(7) {
-  width: 128px; /* Длительность */
+  width: 130px;
   text-align: left;
   padding-right: 40px;
+  position: relative;
+}
+
+.table-header__text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.table-header__icon {
+  cursor: pointer;
+  width: 10px;
+  height: 6px;
 }
