@@ -1,4 +1,5 @@
 .calls-table__row {
+  cursor: pointer;
   position: relative;
   transition: background 0.3s;
 
@@ -54,6 +55,6 @@
 
 .calls-table__cell:nth-child(7) {
   width: 128px; /* Длительность */
-  text-align: left;
+  text-align: right;
   padding-right: 40px;
 }

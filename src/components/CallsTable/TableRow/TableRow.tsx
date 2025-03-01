@@ -2,6 +2,7 @@ import styles from "./TableRow.module.scss";
 import { Call } from "@/models";
 import { formatDateToTime } from "@/utils/formatDateToTime";
 import CallTypeIcon from "@/components/ui/CallTypeIcon/CallTypeIcon";
+import { formatDuration } from "@/utils/formatDuration";
 
 const TableRow = ({ call }: { call: Call }) => {
   const {
@@ -30,15 +31,12 @@ const TableRow = ({ call }: { call: Call }) => {
             alt="avatar"
             className={styles["calls-table__avatar"]}
           />
-          {/* <span className={styles["calls-table__name"]}>
-            {person_name} {person_surname}
-          </span> */}
         </div>
       </td>
       <td className={styles["calls-table__cell"]}>{from_number}</td>
       <td className={styles["calls-table__cell"]}>{source}</td>
       <td className={styles["calls-table__cell"]}>{status}</td>
-      <td className={styles["calls-table__cell"]}>{time}</td>
+      <td className={styles["calls-table__cell"]}>{formatDuration(time)}</td>
     </tr>
   );
 };
