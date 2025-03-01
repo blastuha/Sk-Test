@@ -5,18 +5,8 @@ import CallTypeIcon from "@/components/ui/CallTypeIcon/CallTypeIcon";
 import { formatDuration } from "@/utils/formatDuration";
 
 const TableRow = ({ call }: { call: Call }) => {
-  const {
-    id,
-    in_out,
-    date,
-    from_number,
-    source,
-    status,
-    time,
-    person_avatar,
-    // person_name,
-    // person_surname,
-  } = call;
+  const { id, in_out, date, from_number, source, status, time, person_avatar } =
+    call;
 
   return (
     <tr key={id} className={styles["calls-table__row"]}>

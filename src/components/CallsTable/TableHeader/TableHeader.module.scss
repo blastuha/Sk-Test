@@ -27,6 +27,18 @@
   font-weight: 500;
 }
 
+.table-header__text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.table-header__icon {
+  cursor: pointer;
+  width: 10px;
+  height: 6px;
+}
+
 /* Фиксированные ширины */
 /* Тип */
 .table-header__cell:nth-child(1) {
@@ -65,16 +77,4 @@
   text-align: left;
   padding-right: 40px;
   position: relative;
-}
-
-.table-header__text {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.table-header__icon {
-  cursor: pointer;
-  width: 10px;
-  height: 6px;
 }
