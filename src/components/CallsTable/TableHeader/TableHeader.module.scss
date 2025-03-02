@@ -5,6 +5,8 @@
 .table-header__row {
   width: 100%;
   position: relative;
+  font-size: 14px;
+  line-height: 20.72px;
 
   &::after {
     content: "";
@@ -33,6 +35,14 @@
   gap: 4px;
 }
 
+.table-header__icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 21px;
+}
+
 .table-header__icon {
   cursor: pointer;
   width: 10px;
@@ -42,7 +52,7 @@
 /* Фиксированные ширины */
 /* Тип */
 .table-header__cell:nth-child(1) {
-  width: 94px;
+  width: 94px; // 54px + 40px padding
   padding-left: 40px;
 }
 
@@ -73,7 +83,7 @@
 
 /* Длительность */
 .table-header__cell:nth-child(7) {
-  width: 130px;
+  width: 128px; // 88px + 40pxpadding
   text-align: left;
   padding-right: 40px;
   position: relative;
