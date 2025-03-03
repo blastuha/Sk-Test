@@ -3,6 +3,7 @@ import { Call } from "@/models";
 import { formatDateToTime } from "@/utils/formatDateToTime";
 import CallTypeIcon from "@/components/ui/CallTypeIcon/CallTypeIcon";
 import { formatDuration } from "@/utils/formatDuration";
+import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 
 const TableRow = ({ call }: { call: Call }) => {
   const { id, in_out, date, from_number, source, status, time, person_avatar } =
@@ -11,7 +12,9 @@ const TableRow = ({ call }: { call: Call }) => {
   return (
     <tr key={id} className={styles["calls-table__row"]}>
       <td className={styles["calls-table__cell"]}>
-        <CallTypeIcon type={in_out} status={status} />
+        <IconWrapper width={24} height={24}>
+          <CallTypeIcon type={in_out} status={status} />
+        </IconWrapper>
       </td>
       <td className={styles["calls-table__cell"]}>{formatDateToTime(date)}</td>
       <td className={styles["calls-table__cell"]}>
@@ -23,7 +26,9 @@ const TableRow = ({ call }: { call: Call }) => {
           />
         </div>
       </td>
-      <td className={styles["calls-table__cell"]}>{from_number}</td>
+      <td className={styles["calls-table__cell"]}>
+        {formatPhoneNumber(from_number)}
+      </td>
       <td className={styles["calls-table__cell"]}>{source}</td>
       <td className={styles["calls-table__cell"]}>{status}</td>
       <td className={styles["calls-table__cell"]}>{formatDuration(time)}</td>

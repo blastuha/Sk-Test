@@ -1,12 +1,14 @@
 import { useGetCalls } from "@/hooks/useGetCalls";
 import CallsTable from "../CallsTable/CallsTable";
 
+const today = new Date().toISOString().slice(0, 10);
+
 const CallsContainer = () => {
   const {
     data: callsData,
     isLoading,
     isError,
-  } = useGetCalls("2024-02-01", "2024-02-28", "");
+  } = useGetCalls(today, "2024-02-27", "");
 
   console.log("data", callsData);
 

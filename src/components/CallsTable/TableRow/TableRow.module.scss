@@ -22,19 +22,40 @@
   height: 65px;
   box-sizing: border-box;
   text-align: left;
-  font-size: 14px;
-  color: #122945;
+  font-size: 15px;
+  line-height: 21px;
+  color: var(--ui-text);
   vertical-align: middle;
 }
 
+.calls-table__user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.calls-table__avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* Фиксированные ширины */
+/* Тип */
 .calls-table__cell:nth-child(1) {
-  width: 94px; /* Тип */
+  width: 94px;
   padding-left: 40px;
 }
 
+/* Время */
 .calls-table__cell:nth-child(2) {
-  width: 88px; /* Время */
+  width: 88px;
 }
 
 .calls-table__cell:nth-child(3) {
