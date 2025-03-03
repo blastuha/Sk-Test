@@ -19,11 +19,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ time, audioSrc }) => {
 
       <div className={styles["audio-message__player"]}>
         <IconWrapper width={24} height={24}>
-          <button
-            className={
-              styles["audio-message__button audio-message__button--play"]
-            }
-          >
+          <button className={`${styles.button} ${styles["button--play"]}`}>
             <img src={playIcon} alt="Play" />
           </button>
         </IconWrapper>
@@ -32,22 +28,13 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ time, audioSrc }) => {
 
       <div className={styles["audio-message__controls"]}>
         <IconWrapper width={24} height={24}>
-          <button
-            className={
-              styles["audio-message__button audio-message__button--cancel"]
-            }
-            onClick={() => setIsDownloading(false)}
-          >
+          <button className={`${styles.button} ${styles["button--download"]}`}>
             <img src={closeIcon} alt="Cancel" />
           </button>
         </IconWrapper>
 
         <IconWrapper width={24} height={24}>
-          <button
-            className={
-              styles["audio-message__button audio-message__button--download"]
-            }
-          >
+          <button className={`${styles.button} ${styles["button--cancel"]}`}>
             <img src={downloadIcon} alt="Download" />
           </button>
         </IconWrapper>
