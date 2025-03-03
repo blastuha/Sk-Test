@@ -11,7 +11,14 @@ const TableHeader = () => {
           <th
             key={headerCell}
             scope="col"
-            className={styles["table-header__cell"]}
+            className={`
+      ${styles["table-header__cell"]} 
+      ${
+        headerCell === "Длительность" || headerCell === "Время"
+          ? styles["has-icon"]
+          : ""
+      }
+    `}
           >
             <span className={styles["table-header__text"]}>
               {headerCell}

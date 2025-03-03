@@ -11,6 +11,8 @@ export type Call = Pick<
   | "person_avatar"
   | "person_name"
   | "person_surname"
+  | "errors"
+  | "partner_data"
 >;
 
 // Полный тип звонка

@@ -1,5 +1,5 @@
 .calls-table__row {
-  cursor: pointer;
+  cursor: url("../../../assets/icons/ui/cursor.svg"), auto;
   position: relative;
   transition: background 0.3s;
 
@@ -46,6 +46,29 @@
   object-position: center;
 }
 
+.error-text {
+  font-size: 14px;
+  line-height: 19.6px;
+  color: var(--ui-red);
+}
+
+.call-info {
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.call-duration {
+  @extend .call-info;
+}
+
+.call-time {
+  @extend .call-info;
+}
+
+.call-number {
+  @extend .call-info;
+}
+
 /* Фиксированные ширины */
 /* Тип */
 .calls-table__cell:nth-child(1) {
@@ -58,24 +81,31 @@
   width: 88px;
 }
 
+/* Сотрудник */
 .calls-table__cell:nth-child(3) {
-  width: 129px; /* Сотрудник */
+  width: 129px;
 }
 
+/* Звонок */
 .calls-table__cell:nth-child(4) {
-  width: 325px; /* Звонок */
+  width: 325px;
 }
 
+/* Источник */
 .calls-table__cell:nth-child(5) {
-  width: 214px; /* Источник */
+  width: 214px;
+  font-size: 15px;
+  color: var(--ui-text-secondary);
 }
 
+/* Оценка */
 .calls-table__cell:nth-child(6) {
-  width: 461px; /* Оценка */
+  width: 461px;
 }
 
+/* Длительность */
 .calls-table__cell:nth-child(7) {
-  width: 128px; /* Длительность */
+  width: 128px;
   text-align: right;
   padding-right: 40px;
 }

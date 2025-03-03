@@ -14,5 +14,7 @@ export const normalizeCalls = (callsFromApi: RawCall[]): Call[] => {
       call.person_avatar || "https://lk.skilla.ru/img/noavatar.jpg",
     person_name: call.person_name,
     person_surname: call.person_surname,
+    errors: call.errors,
+    partner_data: call.partner_data,
   }));
 };

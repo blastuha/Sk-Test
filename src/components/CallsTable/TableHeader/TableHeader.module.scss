@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+.table-header__cell.has-icon {
+  cursor: url("../../../assets//icons/ui/cursor.svg"), pointer;
+}
+
 .table-header__row {
   width: 100%;
   position: relative;
@@ -24,27 +28,18 @@
   box-sizing: border-box;
   text-align: left;
   padding: 24px 0 20px 0;
-  font-size: 14px;
-  color: rgba(94, 119, 147, 0.87); // в макете указана прозрачность 87%
-  font-weight: 500;
 }
 
 .table-header__text {
   display: flex;
   align-items: center;
   gap: 4px;
-}
-
-.table-header__icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 21px;
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(94, 119, 147, 0.87); // в макете указана прозрачность 87%
 }
 
 .table-header__icon {
-  cursor: pointer;
   width: 10px;
   height: 6px;
 }
