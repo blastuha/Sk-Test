@@ -6,6 +6,7 @@ import { formatDuration } from "@/utils/formatDuration";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
 import { InOutCallType, CallStatus } from "@/constants";
+import AudioMessage from "@/components/ui/AudioMessage/AudioMessage";
 
 const TableRow = ({ call }: { call: Call }) => {
   const {
@@ -56,7 +57,8 @@ const TableRow = ({ call }: { call: Call }) => {
         )}
       </td>
       <td className={styles["calls-table__cell"]}>
-        <span className={styles["call-duration"]}>{formatDuration(time)}</span>
+        {/* <span className={styles["call-duration"]}>{formatDuration(time)}</span> */}
+        <AudioMessage />
       </td>
     </tr>
   );

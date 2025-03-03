@@ -73,13 +73,15 @@
 
 /* Оценка */
 .table-header__cell:nth-child(6) {
-  width: 461px;
+  width: 146px;
 }
 
 /* Длительность */
 .table-header__cell:nth-child(7) {
-  width: 128px; // 88px + 40pxpadding
-  text-align: left;
+  width: 100%;
   padding-right: 40px;
   position: relative;
+  .table-header__text {
+    justify-content: flex-end;
+  }
 }

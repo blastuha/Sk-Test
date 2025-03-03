@@ -100,12 +100,14 @@
 
 /* Оценка */
 .calls-table__cell:nth-child(6) {
-  width: 461px;
+  width: 146px;
 }
 
 /* Длительность */
 .calls-table__cell:nth-child(7) {
-  width: 128px;
+  width: 100%;
   text-align: right;
   padding-right: 40px;
+  display: flex;
+  justify-content: flex-end;
 }

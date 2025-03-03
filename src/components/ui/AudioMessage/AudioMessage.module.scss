@@ -1,0 +1,48 @@
+.audio-message {
+  max-width: 352px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #f0f4ff;
+  border-radius: 48px;
+  padding: 10px 15px;
+  gap: 10px;
+  height: 48px;
+}
+
+.time {
+  font-size: 14px;
+  color: #666;
+}
+
+.play-button,
+.download-button,
+.cancel-button {
+  cursor: url("../../../assets/icons/ui/cursor.svg"), auto;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.download-button img {
+  filter: brightness(0) saturate(100%) invert(20%) sepia(93%) saturate(650%)
+    hue-rotate(215deg);
+}
+
+.cancel-button img {
+  filter: brightness(0) saturate(100%) invert(32%) sepia(99%) saturate(512%)
+    hue-rotate(180deg);
+}
+
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  background-color: #ccc;
+  border-radius: 2px;
+}

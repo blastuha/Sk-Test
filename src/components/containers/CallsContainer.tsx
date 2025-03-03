@@ -13,8 +13,8 @@ const CallsContainer = () => {
 
   console.log("data", callsData);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading calls</div>;
+  if (isLoading) return <div>Загрузка звонков...</div>;
+  if (isError) return <div>Ошбика при получении звонков</div>;
 
   return <CallsTable calls={normalizeCalls(callsData || [])} />;
 };
