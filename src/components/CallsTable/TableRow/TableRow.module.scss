@@ -105,9 +105,10 @@
 
 /* Длительность */
 .calls-table__cell:nth-child(7) {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   width: 100%;
   text-align: right;
   padding-right: 40px;
-  display: flex;
-  justify-content: flex-end;
 }

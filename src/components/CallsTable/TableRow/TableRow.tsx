@@ -58,7 +58,7 @@ const TableRow = ({ call }: { call: Call }) => {
       </td>
       <td className={styles["calls-table__cell"]}>
         {/* <span className={styles["call-duration"]}>{formatDuration(time)}</span> */}
-        <AudioMessage />
+        <AudioMessage time={formatDuration(time)} />
       </td>
     </tr>
   );
