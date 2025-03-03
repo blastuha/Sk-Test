@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "./AudioMessage.module.scss";
 import playIcon from "@assets/icons/ui/audio/play.svg";
-import downloadIcon from "@assets/icons/ui/audio/download.svg";
 import closeIcon from "@assets/icons/ui/audio/close.svg";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
+import DownloadIcon from "@components/ui/icons/DownloadIcon";
 
 interface AudioMessageProps {
   time: string;
@@ -27,17 +27,13 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ time, audioSrc }) => {
       </div>
 
       <div className={styles["audio-message__controls"]}>
-        <IconWrapper width={24} height={24}>
-          <button className={`${styles.button} ${styles["button--download"]}`}>
-            <img src={closeIcon} alt="Cancel" />
-          </button>
-        </IconWrapper>
+        <button className={`${styles.button} ${styles["button--cancel"]}`}>
+          <img src={closeIcon} alt="Cancel" />
+        </button>
 
-        <IconWrapper width={24} height={24}>
-          <button className={`${styles.button} ${styles["button--cancel"]}`}>
-            <img src={downloadIcon} alt="Download" />
-          </button>
-        </IconWrapper>
+        <button className={`${styles.button} ${styles["button--download"]}`}>
+          <DownloadIcon className={styles["download-icon"]} />
+        </button>
       </div>
     </div>
   );

@@ -43,7 +43,6 @@
   cursor: url("../../../assets/icons/ui/cursor.svg"), auto;
   display: flex;
   align-items: center;
-  color: #adbfdf;
 
   img {
     width: 16px;
@@ -80,4 +79,21 @@
     width: 24px;
     height: 24px;
   }
+}
+
+.button--download {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+
+  &:hover .download-icon {
+    color: #002cfb;
+  }
+}
+
+.download-icon {
+  color: #adbfdf;
+  transition: color 0.2s ease;
 }

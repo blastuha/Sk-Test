@@ -1,7 +1,7 @@
 import styles from "./TableRow.module.scss";
 import { Call } from "@/models";
 import { formatDateToTime } from "@/utils/formatDateToTime";
-import CallTypeIcon from "@/components/ui/CallTypeIcon/CallTypeIcon";
+import CallTypeIcon from "@/components/ui/icons/CallTypeIcon/CallTypeIcon";
 import { formatDuration } from "@/utils/formatDuration";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
