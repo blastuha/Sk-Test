@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./AudioMessage.module.scss";
 import playIcon from "@assets/icons/ui/audio/play.svg";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
-import DownloadIcon from "@components/ui/icons/DownloadIcon";
-import CloseIcon from "@components/ui/icons/CloseIcon";
+import DownloadIcon from "@/components/ui/icons/DownloadIcon";
+import CloseIcon from "@/components/ui/icons/CloseIcon";
 import { apiClient } from "@/api/axiosInstance";
 
 interface AudioMessageProps {
@@ -17,10 +17,10 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
   record,
   partnershipId,
 }) => {
-  const [audioUrl, setAudioUrl] = useState("");
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
-  const [isFetching, setIsFetching] = useState(false);
+  const [audioUrl, setAudioUrl] = useState<string>("");
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isDownloading, setIsDownloading] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const fetchAudio = async () => {
@@ -48,12 +48,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
   const handlePlayPause = async () => {
     if (!audioUrl) {
       if (isFetching) return;
-      const url = await fetchAudio();
-      if (!url) return;
-      if (audioRef.current) {
-        await audioRef.current.play();
-        setIsPlaying(true);
-      }
+      await fetchAudio();
     } else {
       if (!audioRef.current) return;
       if (isPlaying) {
@@ -73,6 +68,15 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
     link.download = "record.mp3";
     link.click();
   };
+
+  useEffect(() => {
+    if (audioUrl && audioRef.current) {
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => console.error("Auto play error:", err));
+    }
+  }, [audioUrl]);
 
   return (
     <div className={styles["audio-message"]}>
