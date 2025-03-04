@@ -8,6 +8,7 @@
   padding: 8px 18px;
   height: 48px;
   gap: 12px;
+  position: relative;
 
   &__time {
     font-weight: 400;
@@ -29,7 +30,6 @@
     background-color: var(--border-color);
     border-radius: 2px;
     max-width: 164px;
-    position: relative;
     overflow: hidden;
   }
 
@@ -38,12 +38,23 @@
     background-color: var(--ui-blue);
     width: 0%;
     transition: width 0.2s linear;
+    position: relative;
   }
 
   &__controls {
     display: flex;
     align-items: center;
     gap: 12px;
+  }
+
+  &__tooltip {
+    position: absolute;
+    bottom: 30px;
+    transform: translateX(88px);
+
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20.3px;
   }
 }
 

@@ -2,15 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./AudioMessage.module.scss";
 import playIcon from "@assets/icons/ui/audio/play.svg";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
-import DownloadIcon from "@/components/ui/icons/DownloadIcon";
-import CloseIcon from "@/components/ui/icons/CloseIcon";
-import PauseIcon from "@/components/ui/icons/PauseIcon";
+import DownloadIcon from "@components/ui/icons/DownloadIcon";
+import CloseIcon from "@components/ui/icons/CloseIcon";
+import PauseIcon from "@components/ui/icons/PauseIcon";
 import { apiClient } from "@/api/axiosInstance";
 
 interface AudioMessageProps {
   time: string;
   record: string;
   partnershipId: string;
+}
+
+// Вспомогательная функция для форматирования секунд в "m:ss"
+function formatTooltipTime(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
 const AudioMessage: React.FC<AudioMessageProps> = ({
@@ -23,7 +30,14 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Для tooltip:
+  const progressBarRef = useRef<HTMLDivElement | null>(null);
+  const [hoverTime, setHoverTime] = useState<number>(0);
+  const [showTooltip, setShowTooltip] = useState<boolean>(false);
+  const [tooltipX, setTooltipX] = useState<number>(0);
 
   const fetchAudio = async () => {
     setIsFetching(true);
@@ -89,12 +103,18 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
   const handleTimeUpdate = () => {
     if (!audioRef.current) return;
     const current = audioRef.current.currentTime;
-    const duration = audioRef.current.duration;
     if (duration > 0) {
       setProgress((current / duration) * 100);
     }
   };
 
+  // Когда аудио загружено, узнаём его полную длину
+  const handleLoadedMetadata = () => {
+    if (!audioRef.current) return;
+    setDuration(audioRef.current.duration);
+  };
+
+  // При первом получении audioUrl автоматически запускаем воспроизведение
   useEffect(() => {
     if (audioUrl && audioRef.current) {
       audioRef.current
@@ -103,6 +123,41 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
         .catch((err) => console.error("Auto play error:", err));
     }
   }, [audioUrl]);
+
+  // Функция для вычисления времени по позиции мыши на прогресс-баре
+  const calculateHoverTime = (clientX: number) => {
+    if (!progressBarRef.current || duration === 0) return 0;
+    const rect = progressBarRef.current.getBoundingClientRect();
+    const offsetX = clientX - rect.left; // расстояние от левого края
+    const ratio = offsetX / rect.width;
+    const hoverSec = ratio * duration;
+    return hoverSec > duration ? duration : hoverSec < 0 ? 0 : hoverSec;
+  };
+
+  // При движении мыши показываем tooltip с подсказкой
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    setShowTooltip(true);
+    const hoverSec = calculateHoverTime(e.clientX);
+    setHoverTime(hoverSec);
+    setTooltipX(e.clientX - e.currentTarget.getBoundingClientRect().left);
+  };
+
+  // Скрываем tooltip, если мышь покидает прогресс-бар
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
+
+  // При клике на прогресс-бар перематываем аудио
+  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!audioRef.current || duration === 0) return;
+    const newTime = calculateHoverTime(e.clientX);
+    audioRef.current.currentTime = newTime;
+    if (!isPlaying) {
+      // Если было на паузе, запустим сразу проигрывание
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+  };
 
   if (!visible) return null;
 
@@ -118,13 +173,29 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
             {isPlaying ? <PauseIcon /> : <img src={playIcon} alt="Play" />}
           </button>
         </IconWrapper>
-        <div className={styles["audio-message__progress-bar"]}>
+
+        <div
+          className={styles["audio-message__progress-bar"]}
+          ref={progressBarRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleProgressClick}
+        >
           <div
             className={styles["audio-message__progress"]}
             style={{ width: `${progress}%` }}
           />
+          {showTooltip && (
+            <div
+              className={styles["audio-message__tooltip"]}
+              style={{ left: tooltipX }}
+            >
+              {formatTooltipTime(hoverTime)}
+            </div>
+          )}
         </div>
       </div>
+
       <div className={styles["audio-message__controls"]}>
         <button
           onClick={handleDownload}
@@ -142,6 +213,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
           </button>
         )}
       </div>
+
       {audioUrl && (
         <audio
           ref={audioRef}
@@ -151,6 +223,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
             setProgress(0);
           }}
           onTimeUpdate={handleTimeUpdate}
+          onLoadedMetadata={handleLoadedMetadata}
         />
       )}
     </div>
