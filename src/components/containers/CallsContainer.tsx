@@ -1,22 +1,53 @@
-import { useGetCalls } from "@/hooks/useGetCalls";
+import React, { useRef, useEffect } from "react";
 import CallsTable from "../CallsTable/CallsTable";
 import { normalizeCalls } from "@/utils/normalizeCalls";
+import { useGetCallsInfinite } from "@/hooks/useGetCalls";
 
 const today = new Date().toISOString().slice(0, 10);
 
 const CallsContainer = () => {
   const {
-    data: callsData,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
     isLoading,
     isError,
-  } = useGetCalls("2024-02-27", today, "");
+  } = useGetCallsInfinite("2025-03-02", today, "");
 
-  console.log("data", callsData);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (observerRef.current) observerRef.current.disconnect();
+
+    observerRef.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    });
+    if (loadMoreRef.current) {
+      observerRef.current.observe(loadMoreRef.current);
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (isLoading) return <div>Загрузка звонков...</div>;
-  if (isError) return <div>Ошбика при получении звонков</div>;
+  if (isError) return <div>Ошибка при получении звонков</div>;
 
-  return <CallsTable calls={normalizeCalls(callsData || [])} />;
+  const allCalls = data?.pages.flatMap((page) => page.results) || [];
+
+  return (
+    <div>
+      <CallsTable calls={normalizeCalls(allCalls)} />
+      <div ref={loadMoreRef} style={{ height: "20px" }}>
+        {isFetchingNextPage
+          ? "Загрузка..."
+          : hasNextPage
+          ? "Загрузить ещё"
+          : ""}
+      </div>
+    </div>
+  );
 };
 
 export default CallsContainer;

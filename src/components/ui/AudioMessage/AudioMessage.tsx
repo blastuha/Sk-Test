@@ -6,18 +6,12 @@ import DownloadIcon from "@components/ui/icons/DownloadIcon";
 import CloseIcon from "@components/ui/icons/CloseIcon";
 import PauseIcon from "@components/ui/icons/PauseIcon";
 import { apiClient } from "@/api/axiosInstance";
+import { formatDuration } from "@/utils/formatDuration";
 
 interface AudioMessageProps {
   time: string;
   record: string;
   partnershipId: string;
-}
-
-// Вспомогательная функция для форматирования секунд в "m:ss"
-function formatTooltipTime(seconds: number): string {
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
 const AudioMessage: React.FC<AudioMessageProps> = ({
@@ -190,7 +184,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
               className={styles["audio-message__tooltip"]}
               style={{ left: tooltipX }}
             >
-              {formatTooltipTime(hoverTime)}
+              {formatDuration(hoverTime)}
             </div>
           )}
         </div>

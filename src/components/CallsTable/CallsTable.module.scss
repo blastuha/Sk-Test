@@ -8,3 +8,27 @@
   width: 100%;
   border-collapse: collapse;
 }
+
+.calls-table__group-row {
+  background-color: transparent;
+}
+
+.calls-table__group-cell {
+  padding: 40px 40px 16px 40px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 40px;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--ui-border-gray);
+  }
+}
+
+.calls-table__group-label {
+  font-size: 15px;
+  position: relative;
+  letter-spacing: 0.2px;
+}
