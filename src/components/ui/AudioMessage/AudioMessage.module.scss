@@ -7,8 +7,6 @@
   border-radius: 48px;
   padding: 8px 18px;
   height: 48px;
-  display: flex;
-  align-items: center;
   gap: 12px;
 
   &__time {
@@ -34,6 +32,7 @@
     position: relative;
     overflow: hidden;
   }
+
   &__progress {
     height: 100%;
     background-color: var(--ui-blue);
@@ -73,14 +72,7 @@
     }
   }
 
-  &--cancel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 24px;
-    height: 24px;
-  }
-
+  &--cancel,
   &--download {
     display: flex;
     justify-content: center;
@@ -90,16 +82,12 @@
   }
 }
 
-.button--download {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
+.button--download:hover .download-icon {
+  color: var(--ui-blue);
+}
 
-  &:hover .download-icon {
-    color: var(--ui-blue);
-  }
+.button--cancel:hover .cancel-icon {
+  color: var(--ui-blue);
 }
 
 .download-icon {
@@ -108,6 +96,6 @@
 }
 
 .cancel-icon {
-  color: var(--ui-blue);
+  color: var(--ui-icon);
   transition: color 0.2s ease;
 }

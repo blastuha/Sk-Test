@@ -18,9 +18,9 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
   record,
   partnershipId,
 }) => {
+  const [visible, setVisible] = useState<boolean>(true);
   const [audioUrl, setAudioUrl] = useState<string>("");
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isDownloading, setIsDownloading] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -76,7 +76,16 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
     link.click();
   };
 
-  // Обновляем прогресс во время воспроизведения
+  const handleCancel = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    setIsPlaying(false);
+    setProgress(0);
+    setAudioUrl("");
+    setVisible(false);
+  };
+
   const handleTimeUpdate = () => {
     if (!audioRef.current) return;
     const current = audioRef.current.currentTime;
@@ -94,6 +103,8 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
         .catch((err) => console.error("Auto play error:", err));
     }
   }, [audioUrl]);
+
+  if (!visible) return null;
 
   return (
     <div className={styles["audio-message"]}>
@@ -116,18 +127,15 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
       </div>
       <div className={styles["audio-message__controls"]}>
         <button
-          onClick={() => {
-            setIsDownloading(true);
-            handleDownload();
-          }}
+          onClick={handleDownload}
           className={`${styles.button} ${styles["button--download"]}`}
           disabled={!audioUrl}
         >
           <DownloadIcon className={styles["download-icon"]} />
         </button>
-        {isDownloading && (
+        {isPlaying && (
           <button
-            onClick={() => setIsDownloading(false)}
+            onClick={handleCancel}
             className={`${styles.button} ${styles["button--cancel"]}`}
           >
             <CloseIcon className={styles["cancel-icon"]} />
