@@ -27,17 +27,22 @@
   }
 }
 
+.calls-table__group-header {
+  display: flex;
+  align-items: center;
+}
+
 .calls-table__group-label {
-  font-size: 15px;
   position: relative;
+  font-size: 15px;
   letter-spacing: 0.2px;
 }
 
 .calls-table__group-count {
-  position: absolute;
-  bottom: 8px;
-  right: -18px;
-  font-size: 12px;
-  line-height: 12px;
+  font-size: 0.75rem;
+  line-height: 0.75rem;
   color: var(--ui-text-header);
+  position: relative;
+  bottom: 5px;
+  left: 4px;
 }

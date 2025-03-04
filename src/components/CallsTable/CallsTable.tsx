@@ -4,6 +4,7 @@ import { Call } from "@/models";
 import TableHeader from "./TableHeader/TableHeader";
 import TableRow from "./TableRow/TableRow";
 import { format, isToday, isYesterday } from "date-fns";
+import { ru } from "date-fns/locale";
 
 type GroupedCalls = {
   [groupKey: string]: {
@@ -40,6 +41,8 @@ const CallsTable: React.FC<CallsTableProps> = ({ calls }) => {
     } else if (isYesterday(d)) {
       groupKey = "yesterday";
       label = "Вчера";
+    } else {
+      label = format(d, "d MMMM", { locale: ru });
     }
 
     if (!grouped[groupKey]) {
@@ -68,16 +71,23 @@ const CallsTable: React.FC<CallsTableProps> = ({ calls }) => {
 
             return (
               <React.Fragment key={groupKey}>
-                <tr className={styles["calls-table__group-row"]}>
-                  <td colSpan={7} className={styles["calls-table__group-cell"]}>
-                    <span className={styles["calls-table__group-label"]}>
-                      {group.label}
-                      <span className={styles["calls-table__group-count"]}>
-                        {count}
-                      </span>
-                    </span>
-                  </td>
-                </tr>
+                {groupKey !== "today" && (
+                  <tr className={styles["calls-table__group-row"]}>
+                    <td
+                      colSpan={7}
+                      className={styles["calls-table__group-cell"]}
+                    >
+                      <div className={styles["calls-table__group-header"]}>
+                        <span className={styles["calls-table__group-label"]}>
+                          {group.label}
+                        </span>
+                        <span className={styles["calls-table__group-count"]}>
+                          {count}
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                )}
 
                 {items.map((call) => (
                   <TableRow key={call.id} call={call} />

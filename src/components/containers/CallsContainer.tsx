@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import CallsTable from "../CallsTable/CallsTable";
 import { normalizeCalls } from "@/utils/normalizeCalls";
 import { useGetCallsInfinite } from "@/hooks/useGetCalls";
@@ -39,7 +39,7 @@ const CallsContainer = () => {
   return (
     <div>
       <CallsTable calls={normalizeCalls(allCalls)} />
-      <div ref={loadMoreRef} style={{ height: "20px" }}>
+      <div ref={loadMoreRef} style={{ height: "50px" }}>
         {isFetchingNextPage
           ? "Загрузка..."
           : hasNextPage
