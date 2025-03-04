@@ -4,31 +4,72 @@ import playIcon from "@assets/icons/ui/audio/play.svg";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 import DownloadIcon from "@components/ui/icons/DownloadIcon";
 import CloseIcon from "@components/ui/icons/CloseIcon";
+import { apiClient } from "@/api/axiosInstance";
 
 interface AudioMessageProps {
   time: string;
-  audioSrc: string;
+  record: string;
+  partnershipId: string;
 }
 
-const AudioMessage: React.FC<AudioMessageProps> = ({ time, audioSrc }) => {
+const AudioMessage: React.FC<AudioMessageProps> = ({
+  time,
+  record,
+  partnershipId,
+}) => {
+  const [audioUrl, setAudioUrl] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const handlePlayPause = () => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
+  const fetchAudio = async () => {
+    setIsFetching(true);
+    try {
+      const url = `/getRecord?record=${record}&partnership_id=${partnershipId}`;
+      const response = await apiClient.post<Blob>(url, null, {
+        responseType: "blob",
+      });
+      setIsFetching(false);
+      if (response.status !== 200) {
+        console.error(`Ошибка: ${response.status}`);
+        return;
+      }
+      const blob = response.data;
+      const objectUrl = URL.createObjectURL(blob);
+      setAudioUrl(objectUrl);
+      return objectUrl;
+    } catch (error) {
+      setIsFetching(false);
+      console.error("Ошибка при получении записи:", error);
     }
-    setIsPlaying(!isPlaying);
+  };
+
+  const handlePlayPause = async () => {
+    if (!audioUrl) {
+      if (isFetching) return;
+      const url = await fetchAudio();
+      if (!url) return;
+      if (audioRef.current) {
+        await audioRef.current.play();
+        setIsPlaying(true);
+      }
+    } else {
+      if (!audioRef.current) return;
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        await audioRef.current.play();
+        setIsPlaying(true);
+      }
+    }
   };
 
   const handleDownload = () => {
-    if (!audioSrc) return;
+    if (!audioUrl) return;
     const link = document.createElement("a");
-    link.href = audioSrc;
+    link.href = audioUrl;
     link.download = "record.mp3";
     link.click();
   };
@@ -36,35 +77,28 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ time, audioSrc }) => {
   return (
     <div className={styles["audio-message"]}>
       <span className={styles["audio-message__time"]}>{time}</span>
-
-      {/* Плеер */}
       <div className={styles["audio-message__player"]}>
         <IconWrapper width={24} height={24}>
           <button
             className={`${styles.button} ${styles["button--play"]}`}
             onClick={handlePlayPause}
-            disabled={!audioSrc}
           >
             <img src={playIcon} alt="Play" />
           </button>
         </IconWrapper>
         <div className={styles["audio-message__progress-bar"]} />
       </div>
-
       <div className={styles["audio-message__controls"]}>
-        {/* Кнопка Download */}
         <button
           onClick={() => {
             setIsDownloading(true);
             handleDownload();
           }}
           className={`${styles.button} ${styles["button--download"]}`}
-          disabled={!audioSrc}
+          disabled={!audioUrl}
         >
           <DownloadIcon className={styles["download-icon"]} />
         </button>
-
-        {/* Кнопка Cancel (появляется только если isDownloading === true) */}
         {isDownloading && (
           <button
             onClick={() => setIsDownloading(false)}
@@ -74,13 +108,13 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ time, audioSrc }) => {
           </button>
         )}
       </div>
-
-      {/* Невидимый <audio>, который мы воспроизводим */}
-      <audio
-        ref={audioRef}
-        src={audioSrc}
-        onEnded={() => setIsPlaying(false)}
-      />
+      {audioUrl && (
+        <audio
+          ref={audioRef}
+          src={audioUrl}
+          onEnded={() => setIsPlaying(false)}
+        />
+      )}
     </div>
   );
 };

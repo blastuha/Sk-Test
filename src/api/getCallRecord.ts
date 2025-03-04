@@ -8,6 +8,7 @@ export async function getCallRecord(record: string, partnershipId: string) {
   const response = await apiClient.post<Blob>("/getRecord", formData, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer testtoken`,
     },
     responseType: "blob",
   });

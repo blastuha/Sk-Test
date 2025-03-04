@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./TableRow.module.scss";
 import { Call } from "@/models";
 import { formatDateToTime } from "@/utils/formatDateToTime";
@@ -8,7 +9,11 @@ import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
 import { InOutCallType, CallStatus } from "@/constants";
 import AudioMessage from "@/components/ui/AudioMessage/AudioMessage";
 
-const TableRow = ({ call }: { call: Call }) => {
+interface TableRowProps {
+  call: Call;
+}
+
+const TableRow: React.FC<TableRowProps> = ({ call }) => {
   const {
     id,
     in_out,
@@ -22,12 +27,6 @@ const TableRow = ({ call }: { call: Call }) => {
     record,
     partnership_id,
   } = call;
-
-  const audioSrc = record
-    ? `https://api.skilla.ru/mango/getRecord?record=${record}&partnership_id=${
-        partner_data?.id || partnership_id
-      }`
-    : "";
 
   return (
     <tr key={id} className={styles["calls-table__row"]}>
@@ -66,7 +65,11 @@ const TableRow = ({ call }: { call: Call }) => {
       </td>
       <td className={styles["calls-table__cell"]}>
         {record && (
-          <AudioMessage time={formatDuration(time)} audioSrc={audioSrc} />
+          <AudioMessage
+            time={formatDuration(time)}
+            record={record}
+            partnershipId={partner_data?.id || partnership_id}
+          />
         )}
       </td>
     </tr>
