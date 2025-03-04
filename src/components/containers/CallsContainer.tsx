@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import CallsTable from "../CallsTable/CallsTable";
 import { normalizeCalls } from "@/utils/normalizeCalls";
 import { useGetCallsInfinite } from "@/hooks/useGetCalls";
+import FilterBar from "../CallsTable/FilterBar/FilterBar";
 
 const today = new Date().toISOString().slice(0, 10);
 
@@ -37,7 +38,8 @@ const CallsContainer = () => {
   const allCalls = data?.pages.flatMap((page) => page.results) || [];
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+      <FilterBar />
       <CallsTable calls={normalizeCalls(allCalls)} />
       <div ref={loadMoreRef} style={{ height: "50px" }}>
         {isFetchingNextPage

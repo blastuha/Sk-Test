@@ -1,0 +1,22 @@
+.calls-filter-bar {
+  width: 100%;
+  height: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calls-filter-bar__left {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.calls-filter-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.calls-filter-bar__text {
+}
