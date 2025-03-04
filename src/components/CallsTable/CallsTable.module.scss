@@ -15,7 +15,7 @@
 
 .calls-table__group-cell {
   padding: 40px 40px 16px 40px;
-
+  position: relative;
   &::after {
     content: "";
     position: absolute;
@@ -31,4 +31,13 @@
   font-size: 15px;
   position: relative;
   letter-spacing: 0.2px;
+}
+
+.calls-table__group-count {
+  position: absolute;
+  bottom: 8px;
+  right: -18px;
+  font-size: 12px;
+  line-height: 12px;
+  color: var(--ui-text-header);
 }

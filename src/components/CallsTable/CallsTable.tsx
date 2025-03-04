@@ -5,7 +5,6 @@ import TableHeader from "./TableHeader/TableHeader";
 import TableRow from "./TableRow/TableRow";
 import { format, isToday, isYesterday } from "date-fns";
 
-// Группируем по ключу даты (но без учета времени).
 type GroupedCalls = {
   [groupKey: string]: {
     label: string;
@@ -22,7 +21,6 @@ const CallsTable: React.FC<CallsTableProps> = ({ calls }) => {
     return <div>Звонков нет</div>;
   }
 
-  //  Преобразуем string  в объект Date
   const callsWithDateObj = calls.map((call) => {
     const [dateStr, timeStr] = call.date.split(" ");
     const dateObj = new Date(`${dateStr}T${timeStr}`);
@@ -50,13 +48,11 @@ const CallsTable: React.FC<CallsTableProps> = ({ calls }) => {
     grouped[groupKey].items.push(item);
   });
 
-  // Меняем объект grouped в массив для сортировки
   const sortedGroupKeys = Object.keys(grouped).sort((a, b) => {
     if (a === "today") return -1;
     if (b === "today") return 1;
     if (a === "yesterday" && b !== "today") return -1;
     if (b === "yesterday" && a !== "today") return 1;
-
     return b.localeCompare(a);
   });
 
@@ -75,7 +71,10 @@ const CallsTable: React.FC<CallsTableProps> = ({ calls }) => {
                 <tr className={styles["calls-table__group-row"]}>
                   <td colSpan={7} className={styles["calls-table__group-cell"]}>
                     <span className={styles["calls-table__group-label"]}>
-                      {group.label} {count}
+                      {group.label}
+                      <span className={styles["calls-table__group-count"]}>
+                        {count}
+                      </span>
                     </span>
                   </td>
                 </tr>
