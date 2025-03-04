@@ -19,7 +19,15 @@ const TableRow = ({ call }: { call: Call }) => {
     person_avatar,
     errors,
     partner_data,
+    record,
+    partnership_id,
   } = call;
+
+  const audioSrc = record
+    ? `https://api.skilla.ru/mango/getRecord?record=${record}&partnership_id=${
+        partner_data?.id || partnership_id
+      }`
+    : "";
 
   return (
     <tr key={id} className={styles["calls-table__row"]}>
@@ -57,8 +65,9 @@ const TableRow = ({ call }: { call: Call }) => {
         )}
       </td>
       <td className={styles["calls-table__cell"]}>
-        {/* <span className={styles["call-duration"]}>{formatDuration(time)}</span> */}
-        <AudioMessage time={formatDuration(time)} />
+        {record && (
+          <AudioMessage time={formatDuration(time)} audioSrc={audioSrc} />
+        )}
       </td>
     </tr>
   );

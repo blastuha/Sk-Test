@@ -16,5 +16,7 @@ export const normalizeCalls = (callsFromApi: RawCall[]): Call[] => {
     person_surname: call.person_surname,
     errors: call.errors,
     partner_data: call.partner_data,
+    partnership_id: call.partnership_id,
+    record: call.record,
   }));
 };

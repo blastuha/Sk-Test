@@ -13,6 +13,8 @@ export type Call = Pick<
   | "person_surname"
   | "errors"
   | "partner_data"
+  | "record"
+  | "partnership_id"
 >;
 
 // Полный тип звонка
