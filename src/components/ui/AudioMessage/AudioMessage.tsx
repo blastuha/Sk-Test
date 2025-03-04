@@ -4,6 +4,7 @@ import playIcon from "@assets/icons/ui/audio/play.svg";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 import DownloadIcon from "@/components/ui/icons/DownloadIcon";
 import CloseIcon from "@/components/ui/icons/CloseIcon";
+import PauseIcon from "@/components/ui/icons/PauseIcon";
 import { apiClient } from "@/api/axiosInstance";
 
 interface AudioMessageProps {
@@ -21,6 +22,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const fetchAudio = async () => {
@@ -48,7 +50,12 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
   const handlePlayPause = async () => {
     if (!audioUrl) {
       if (isFetching) return;
-      await fetchAudio();
+      const url = await fetchAudio();
+      if (!url) return;
+      if (audioRef.current) {
+        await audioRef.current.play();
+        setIsPlaying(true);
+      }
     } else {
       if (!audioRef.current) return;
       if (isPlaying) {
@@ -69,6 +76,16 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
     link.click();
   };
 
+  // Обновляем прогресс во время воспроизведения
+  const handleTimeUpdate = () => {
+    if (!audioRef.current) return;
+    const current = audioRef.current.currentTime;
+    const duration = audioRef.current.duration;
+    if (duration > 0) {
+      setProgress((current / duration) * 100);
+    }
+  };
+
   useEffect(() => {
     if (audioUrl && audioRef.current) {
       audioRef.current
@@ -87,10 +104,15 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
             className={`${styles.button} ${styles["button--play"]}`}
             onClick={handlePlayPause}
           >
-            <img src={playIcon} alt="Play" />
+            {isPlaying ? <PauseIcon /> : <img src={playIcon} alt="Play" />}
           </button>
         </IconWrapper>
-        <div className={styles["audio-message__progress-bar"]} />
+        <div className={styles["audio-message__progress-bar"]}>
+          <div
+            className={styles["audio-message__progress"]}
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </div>
       <div className={styles["audio-message__controls"]}>
         <button
@@ -116,7 +138,11 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
         <audio
           ref={audioRef}
           src={audioUrl}
-          onEnded={() => setIsPlaying(false)}
+          onEnded={() => {
+            setIsPlaying(false);
+            setProgress(0);
+          }}
+          onTimeUpdate={handleTimeUpdate}
         />
       )}
     </div>
