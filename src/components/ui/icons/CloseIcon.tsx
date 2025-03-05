@@ -2,14 +2,16 @@ import React from "react";
 
 const CloseIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({
   className = "",
+  width = 14,
+  height = 14,
   ...props
 }) => {
   return (
     <svg
       className={className}
       fill="currentColor"
-      width="14"
-      height="14"
+      width={width}
+      height={height}
       viewBox="0 0 14 14"
       xmlns="http://www.w3.org/2000/svg"
       {...props}

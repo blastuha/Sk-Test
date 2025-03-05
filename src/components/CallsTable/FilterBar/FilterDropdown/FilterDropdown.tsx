@@ -3,6 +3,7 @@ import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 import styles from "./FilterDropdown.module.scss";
 import ArrowDownIcon from "@/components/ui/icons/ArrowDownIcon";
 import ArrowTopIcon from "@/components/ui/icons/ArrowTopIcon";
+import close from "@assets/icons/ui/close.svg";
 
 interface FilterDropdownProps {
   label: string;
@@ -27,6 +28,11 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
     setSelected(value);
     onSelect(value);
     setIsOpen(false);
+  };
+
+  const handleReset = () => {
+    setSelected("Все типы");
+    onSelect("Все типы");
   };
 
   useEffect(() => {
@@ -79,6 +85,15 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
             </div>
           ))}
         </div>
+      )}
+      {selected !== "Все типы" && (
+        <button
+          className={styles["calls-filter-bar__reset"]}
+          onClick={handleReset}
+        >
+          <span>Сбросить фильтры</span>
+          <img src={close} alt="close" className={styles["close-icon"]} />
+        </button>
       )}
     </div>
   );

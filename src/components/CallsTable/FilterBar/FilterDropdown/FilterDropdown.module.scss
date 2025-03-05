@@ -1,6 +1,7 @@
 .calls-filter-bar__left-wrapper {
+  display: flex;
   position: relative;
-  display: inline-block;
+  gap: 16px;
 }
 
 .calls-filter-bar__left {
@@ -42,6 +43,16 @@
   }
 }
 
+.calls-filter-bar__reset {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #5e7793;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+}
+
 .calls-filter-bar__right {
   display: flex;
   align-items: center;
@@ -50,4 +61,8 @@
 
 .active-icon {
   color: var(--ui-blue);
+}
+
+.active-icon {
+  color: #adbfdfa2;
 }
