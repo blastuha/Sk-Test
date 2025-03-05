@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./FilterBar.module.scss";
-import FilterDropdown from "@/components/ui/FilterDropdown/FilterDropdown";
+import FilterDropdown from "./FilterDropdown/FilterDropdown";
 
 const FilterBar = () => {
   const handleSelect = (value: string) => {

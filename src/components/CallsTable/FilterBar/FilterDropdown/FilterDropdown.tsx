@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 import styles from "./FilterDropdown.module.scss";
 import ArrowDownIcon from "@/components/ui/icons/ArrowDownIcon";
+import ArrowTopIcon from "@/components/ui/icons/ArrowTopIcon";
 
 interface FilterDropdownProps {
   label: string;
@@ -15,6 +16,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   onSelect,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState(label);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   const handleToggle = () => {
@@ -22,6 +24,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   };
 
   const handleOptionClick = (value: string) => {
+    setSelected(value);
     onSelect(value);
     setIsOpen(false);
   };
@@ -42,9 +45,26 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         className={styles["calls-filter-bar__left"]}
         onClick={handleToggle}
       >
-        <span className={styles["calls-filter-bar__text"]}>{label}</span>
+        <span
+          className={`${styles["calls-filter-bar__text"]} ${
+            selected !== "Все типы"
+              ? styles["calls-filter-bar__text--active"]
+              : ""
+          }`}
+        >
+          {selected}
+        </span>
         <IconWrapper width={18} height={21}>
-          <ArrowDownIcon width={10} height={6} />
+          {isOpen ? (
+            <ArrowTopIcon
+              width={10}
+              height={6}
+              className={styles["active-icon"]}
+              fill="#002CFB"
+            />
+          ) : (
+            <ArrowDownIcon width={10} height={6} />
+          )}
         </IconWrapper>
       </button>
       {isOpen && (
