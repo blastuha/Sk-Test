@@ -3,6 +3,7 @@ import { IMaskInput } from "react-imask";
 import styles from "./DateDropdown.module.scss";
 import CalendarIcon from "@/components/ui/icons/CalendarIcon";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
+import { dateValidation } from "@/utils/dateValidation";
 
 interface DateDropdownProps {
   onSelect: (value: string) => void;
@@ -18,9 +19,9 @@ const DateDropdown: React.FC<DateDropdownProps> = ({
   const [endDate, setEndDate] = useState("");
 
   const handleApplyCustomDates = () => {
-    const datePattern = /^\d{2}\.\d{2}\.\d{2}$/;
-    if (!datePattern.test(startDate) || !datePattern.test(endDate)) {
-      alert("Введите дату в формате ДД.ММ.ГГ (например, 21.02.25)");
+    // проверка на валидность даты
+    if (!dateValidation(startDate) || !dateValidation(endDate)) {
+      alert("Введите корректные даты");
       return;
     }
     onSelect(`${startDate} - ${endDate}`);

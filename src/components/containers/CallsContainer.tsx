@@ -32,6 +32,12 @@ const calculateStartDate = (period: string): string => {
   return date.toISOString().slice(0, 10);
 };
 
+// Функция для преобразования даты из формата "ДД.ММ.ГГ" в "YYYY-MM-DD"
+const convertCustomDate = (dateStr: string): string => {
+  const [day, month, year] = dateStr.split(".");
+  return `20${year}-${month}-${day}`;
+};
+
 const defaultPeriod = "3 дня";
 const defaultStartDate = calculateStartDate(defaultPeriod);
 
@@ -73,14 +79,20 @@ const CallsContainer = () => {
     setInOut(value);
   };
 
-  // Новый callback для смены периода дат
+  // Обновлённая функция для смены периода дат
   const handleDateChange = (period: string) => {
-    if (period === "Указать даты") {
-      // Здесь можно реализовать открытие модального окна для выбора дат
-      return;
+    if (period.includes(" - ")) {
+      // Если выбран пользовательский диапазон дат
+      const [start, end] = period.split(" - ");
+      setDateRange({
+        dateStart: convertCustomDate(start.trim()),
+        dateEnd: convertCustomDate(end.trim()),
+      });
+    } else {
+      // Для предустановленных периодов
+      const newStartDate = calculateStartDate(period);
+      setDateRange({ dateStart: newStartDate, dateEnd: formattedToday });
     }
-    const newStartDate = calculateStartDate(period);
-    setDateRange({ dateStart: newStartDate, dateEnd: formattedToday });
   };
 
   return (
@@ -88,7 +100,7 @@ const CallsContainer = () => {
       <FilterBar
         selectedFilter={inOut}
         onSelectType={handleSelectType}
-        onDateChange={handleDateChange} // Передаём callback для смены периода
+        onDateChange={handleDateChange}
       />
 
       {isLoading ? (
