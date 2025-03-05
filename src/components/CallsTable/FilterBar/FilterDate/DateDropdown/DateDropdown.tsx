@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { IMaskInput } from "react-imask";
 import styles from "./DateDropdown.module.scss";
 import CalendarIcon from "@/components/ui/icons/CalendarIcon";
+import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 
 interface DateDropdownProps {
   onSelect: (value: string) => void;
@@ -12,6 +14,17 @@ const DateDropdown: React.FC<DateDropdownProps> = ({
   currentValue,
 }) => {
   const options = ["3 дня", "Неделя", "Месяц", "Год"];
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const handleApplyCustomDates = () => {
+    const datePattern = /^\d{2}\.\d{2}\.\d{2}$/;
+    if (!datePattern.test(startDate) || !datePattern.test(endDate)) {
+      alert("Введите дату в формате ДД.ММ.ГГ (например, 21.02.25)");
+      return;
+    }
+    onSelect(`${startDate} - ${endDate}`);
+  };
 
   return (
     <ul className={styles["date-dropdown"]}>
@@ -31,12 +44,35 @@ const DateDropdown: React.FC<DateDropdownProps> = ({
       <li className={styles["date-dropdown__custom-label"]}>
         <span>Указать даты</span>
       </li>
-      <li
-        className={styles["date-dropdown__custom-picker"]}
-        onClick={() => onSelect("Указать даты")}
-      >
-        <span>__.__.__-__.__.__</span>
-        <CalendarIcon className={styles["date-dropdown__icon"]} />
+      <li className={styles["date-dropdown__custom-picker"]}>
+        <div>
+          <IMaskInput
+            mask="00.00.00"
+            placeholder="__.__.__"
+            value={startDate}
+            unmask={false}
+            onAccept={(value: string) => setStartDate(value)}
+            className={styles["date-dropdown__input"]}
+          />
+          <span className={styles["date-dropdown__separator"]}>-</span>
+          <IMaskInput
+            mask="00.00.00"
+            placeholder="__.__.__"
+            value={endDate}
+            unmask={false}
+            onAccept={(value: string) => setEndDate(value)}
+            className={styles["date-dropdown__input"]}
+          />
+        </div>
+
+        <button
+          onClick={handleApplyCustomDates}
+          className={styles["date-dropdown__apply-button"]}
+        >
+          <IconWrapper width={16} height={16}>
+            <CalendarIcon className={styles["date-dropdown__icon"]} />
+          </IconWrapper>
+        </button>
       </li>
     </ul>
   );
