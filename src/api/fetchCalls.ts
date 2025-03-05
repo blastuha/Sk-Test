@@ -12,8 +12,18 @@ export const fetchCalls = async (
   inOut: CallFilterType = "",
   offset = 0
 ): Promise<RawCall[]> => {
+  const params = new URLSearchParams({
+    date_start: dateStart,
+    date_end: dateEnd,
+    offset: offset.toString(),
+  });
+
+  if (inOut !== "") {
+    params.append("in_out", inOut);
+  }
+
   const response = await apiClient.post<CallResponse>(
-    `/getList?date_start=${dateStart}&date_end=${dateEnd}&in_out=${inOut}&offset=${offset}`
+    `/getList?${params.toString()}`
   );
   return response.data.results;
 };

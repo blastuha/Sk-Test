@@ -15,8 +15,8 @@ export enum InOutCallType {
   Outgoing = 0,
 }
 
-// Статус дозвонился / не дозвонился
 export enum CallStatus {
   Connected = "Дозвонился",
-  Missed = "Не дозвонился",
+  Missed = "Пропущенный",
+  Failed = "Недозвон",
 }

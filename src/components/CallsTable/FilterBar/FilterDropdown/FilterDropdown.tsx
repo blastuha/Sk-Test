@@ -26,7 +26,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
 
   const handleOptionClick = (value: string) => {
     setSelected(value);
-    onSelect(value);
+    onSelect(value); // вызываем коллбэк, передавая строку
     setIsOpen(false);
   };
 
