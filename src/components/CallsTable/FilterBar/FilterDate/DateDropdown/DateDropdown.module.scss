@@ -1,0 +1,41 @@
+.filter-date-dropdown {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  // transform: translateX(-50%);
+  margin-top: 8px;
+  background-color: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  box-shadow: 0px 0px 26px 0px #e9edf3cc;
+  width: 204px;
+  z-index: 10;
+}
+
+.filter-date-dropdown__item {
+  color: #122945;
+  height: 40px;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: #f1f4f9;
+  }
+}
+
+.filter-date-dropdown__item--active {
+  background-color: #f1f4f9;
+  color: #002cfb;
+}
+
+.filter-date-dropdown__calendar {
+  width: 16px;
+  height: 18px;
+  margin-left: 8px;
+  color: #adbfdf;
+}

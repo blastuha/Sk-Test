@@ -1,0 +1,50 @@
+.filter-date__container {
+  position: relative;
+}
+
+.filter-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.filter-date__arrow-button {
+  cursor: pointer;
+}
+
+.filter-date__icon {
+  width: 7px;
+  height: 10px;
+  color: #adbfdf;
+
+  &:hover {
+    color: #002cfb;
+    transition: color 0.2s ease;
+  }
+}
+
+.filter-date__center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-date__calendar {
+  width: 16px;
+  height: 18px;
+  color: #adbfdf;
+  cursor: pointer;
+
+  &:hover {
+    color: #002cfb;
+    transition: color 0.2s ease;
+  }
+}
+
+.filter-date__text {
+  font-size: 14px;
+  line-height: 16px;
+  color: #002cfb;
+  cursor: pointer;
+}

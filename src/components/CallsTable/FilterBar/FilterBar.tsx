@@ -2,15 +2,18 @@ import React from "react";
 import styles from "./FilterBar.module.scss";
 import FilterDropdown from "./FilterDropdown/FilterDropdown";
 import { CallFilterType } from "@/models/call/callFilterType";
+import FilterDate from "./FilterDate/FilterDate";
 
 interface FilterBarProps {
   selectedFilter: CallFilterType;
   onSelectType: (value: CallFilterType) => void;
+  onDateChange: (period: string) => void; // новый пропс
 }
 
 const FilterBar: React.FC<FilterBarProps> = ({
   selectedFilter,
   onSelectType,
+  onDateChange,
 }) => {
   const filterOptions: { label: string; value: CallFilterType }[] = [
     { label: "Все звонки", value: "" },
@@ -25,9 +28,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
         value={selectedFilter}
         onChange={onSelectType}
       />
-      <div className={styles["calls-filter-bar__right"]}>
-        <button className={styles["calls-filter-bar__text"]}>3 дня</button>
-      </div>
+      <FilterDate onDateChange={onDateChange} /> {/* Передаём callback */}
     </div>
   );
 };
