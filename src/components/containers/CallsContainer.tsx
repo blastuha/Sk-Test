@@ -1,11 +1,13 @@
+// src/components/CallsContainer/CallsContainer.tsx
 import React, { useRef, useEffect, useState } from "react";
 import CallsTable from "../CallsTable/CallsTable";
 import { normalizeCalls } from "@/utils/normalizeCalls";
 import { useGetCallsInfinite } from "@/hooks/useGetCalls";
 import FilterBar from "../CallsTable/FilterBar/FilterBar";
-import { CallFilterType } from "@/models";
+import { CallFilterType } from "@/models/call/callFilterType";
 
 const today = new Date().toISOString().slice(0, 10);
+const startDate = "2025-03-02";
 
 const CallsContainer = () => {
   const [inOut, setInOut] = useState<CallFilterType>("");
@@ -17,9 +19,7 @@ const CallsContainer = () => {
     isFetchingNextPage,
     isLoading,
     isError,
-  } = useGetCallsInfinite("2025-03-02", today, inOut);
-
-  console.log("data", data);
+  } = useGetCallsInfinite(startDate, today, inOut);
 
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
@@ -37,29 +37,32 @@ const CallsContainer = () => {
     }
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  if (isLoading) return <div>Загрузка звонков...</div>;
-  if (isError) return <div>Ошибка при получении звонков</div>;
-
   const allCalls = data?.pages.flatMap((page) => page.results) || [];
 
-  const handleSelectType = (value: string) => {
-    if (value === "Входящие") {
-      setInOut("1");
-    } else if (value === "Исходящие") {
-      setInOut("0");
-    } else {
-      setInOut("");
-    }
+  const handleSelectType = (value: CallFilterType) => {
+    setInOut(value);
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-      <FilterBar onSelectType={handleSelectType} />
+      <FilterBar selectedFilter={inOut} onSelectType={handleSelectType} />
 
-      <CallsTable calls={normalizeCalls(allCalls)} />
-      <div ref={loadMoreRef} style={{ height: "50px" }}>
-        {isFetchingNextPage ? "Загрузка..." : hasNextPage}
-      </div>
+      {isLoading ? (
+        <div>Загрузка звонков...</div>
+      ) : isError ? (
+        <div>Ошибка при получении звонков</div>
+      ) : (
+        <>
+          <CallsTable calls={normalizeCalls(allCalls)} />
+          <div ref={loadMoreRef} style={{ height: "50px" }}>
+            {isFetchingNextPage
+              ? "Загрузка..."
+              : hasNextPage
+              ? "Загрузить ещё"
+              : ""}
+          </div>
+        </>
+      )}
     </div>
   );
 };

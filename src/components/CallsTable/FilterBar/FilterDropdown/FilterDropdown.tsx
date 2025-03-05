@@ -1,38 +1,46 @@
+// src/components/CallsTable/FilterBar/FilterDropdown/FilterDropdown.tsx
 import React, { useState, useRef, useEffect } from "react";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 import styles from "./FilterDropdown.module.scss";
 import ArrowDownIcon from "@/components/ui/icons/ArrowDownIcon";
 import ArrowTopIcon from "@/components/ui/icons/ArrowTopIcon";
 import close from "@assets/icons/ui/close.svg";
+import { CallFilterType } from "@/models/call/callFilterType";
+
+interface Option {
+  label: string;
+  value: CallFilterType;
+}
 
 interface FilterDropdownProps {
-  label: string;
-  options: string[];
-  onSelect: (value: string) => void;
+  options: Option[];
+  value: CallFilterType;
+  onChange: (value: CallFilterType) => void;
 }
 
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
-  label,
   options,
-  onSelect,
+  value,
+  onChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(label);
   const menuRef = useRef<HTMLDivElement | null>(null);
+
+  // Находим выбранную опцию для отображения метки
+  const selectedOption =
+    options.find((opt) => opt.value === value) || options[0];
 
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleOptionClick = (value: string) => {
-    setSelected(value);
-    onSelect(value); // вызываем коллбэк, передавая строку
+  const handleOptionClick = (option: Option) => {
+    onChange(option.value);
     setIsOpen(false);
   };
 
   const handleReset = () => {
-    setSelected("Все типы");
-    onSelect("Все типы");
+    onChange(options[0].value); // Сброс к значению по умолчанию ("Все звонки")
   };
 
   useEffect(() => {
@@ -53,12 +61,12 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
       >
         <span
           className={`${styles["calls-filter-bar__text"]} ${
-            selected !== "Все типы"
+            value !== options[0].value
               ? styles["calls-filter-bar__text--active"]
               : ""
           }`}
         >
-          {selected}
+          {selectedOption.label}
         </span>
         <IconWrapper width={18} height={21}>
           {isOpen ? (
@@ -77,16 +85,16 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         <div className={styles["calls-filter-bar__menu"]}>
           {options.map((opt) => (
             <div
-              key={opt}
+              key={opt.value}
               className={styles["calls-filter-bar__item"]}
               onClick={() => handleOptionClick(opt)}
             >
-              {opt}
+              {opt.label}
             </div>
           ))}
         </div>
       )}
-      {selected !== "Все типы" && (
+      {value !== options[0].value && (
         <button
           className={styles["calls-filter-bar__reset"]}
           onClick={handleReset}
