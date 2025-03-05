@@ -7,7 +7,7 @@ import FilterDate from "./FilterDate/FilterDate";
 interface FilterBarProps {
   selectedFilter: CallFilterType;
   onSelectType: (value: CallFilterType) => void;
-  onDateChange: (period: string) => void; // новый пропс
+  onDateChange: (period: string) => void;
 }
 
 const FilterBar: React.FC<FilterBarProps> = ({
@@ -28,7 +28,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
         value={selectedFilter}
         onChange={onSelectType}
       />
-      <FilterDate onDateChange={onDateChange} /> {/* Передаём callback */}
+      <FilterDate onDateChange={onDateChange} />
     </div>
   );
 };

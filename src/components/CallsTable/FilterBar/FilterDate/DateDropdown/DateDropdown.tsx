@@ -14,29 +14,31 @@ const DateDropdown: React.FC<DateDropdownProps> = ({
   const options = ["3 дня", "Неделя", "Месяц", "Год"];
 
   return (
-    <div className={styles["filter-date-dropdown"]}>
+    <ul className={styles["date-dropdown"]}>
       {options.map((option) => (
-        <div
+        <li
           key={option}
-          className={`${styles["filter-date-dropdown__item"]} ${
+          className={`${styles["date-dropdown__option"]} ${
             currentValue === option
-              ? styles["filter-date-dropdown__item--active"]
+              ? styles["date-dropdown__option--active"]
               : ""
           }`}
           onClick={() => onSelect(option)}
         >
           {option}
-        </div>
+        </li>
       ))}
-
-      <div
-        className={styles["filter-date-dropdown__item"]}
+      <li className={styles["date-dropdown__custom-label"]}>
+        <span>Указать даты</span>
+      </li>
+      <li
+        className={styles["date-dropdown__custom-picker"]}
         onClick={() => onSelect("Указать даты")}
       >
-        Указать даты
-        <CalendarIcon className={styles["filter-date-dropdown__calendar"]} />
-      </div>
-    </div>
+        <span>__.__.__-__.__.__</span>
+        <CalendarIcon className={styles["date-dropdown__icon"]} />
+      </li>
+    </ul>
   );
 };
 

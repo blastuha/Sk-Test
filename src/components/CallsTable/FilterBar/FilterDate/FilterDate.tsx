@@ -10,7 +10,6 @@ interface FilterDateProps {
 }
 
 const FilterDate: React.FC<FilterDateProps> = ({ onDateChange }) => {
-  // Текущее значение периода
   const [currentValue, setCurrentValue] = useState("3 дня");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,7 +36,6 @@ const FilterDate: React.FC<FilterDateProps> = ({ onDateChange }) => {
   const handleSelectOption = (value: string) => {
     setCurrentValue(value);
     setIsOpen(false);
-    // Вызываем callback для обновления параметров дат в API
     onDateChange(value);
   };
 
@@ -48,7 +46,6 @@ const FilterDate: React.FC<FilterDateProps> = ({ onDateChange }) => {
           <ArrowLeftIcon className={styles["filter-date__icon"]} />
         </button>
 
-        {/* При клике на центр (иконка + текст) открывается меню */}
         <div className={styles["filter-date__center"]} onClick={toggleDropdown}>
           <CalendarIcon className={styles["filter-date__calendar"]} />
           <span className={styles["filter-date__text"]}>{currentValue}</span>
@@ -59,7 +56,6 @@ const FilterDate: React.FC<FilterDateProps> = ({ onDateChange }) => {
         </button>
       </div>
 
-      {/* Показываем дропдаун, если isOpen === true */}
       {isOpen && (
         <DateDropdown
           onSelect={handleSelectOption}
