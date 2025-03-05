@@ -1,4 +1,3 @@
-// src/components/CallsTable/FilterBar/FilterBar.tsx
 import React from "react";
 import styles from "./FilterBar.module.scss";
 import FilterDropdown from "./FilterDropdown/FilterDropdown";
@@ -13,7 +12,6 @@ const FilterBar: React.FC<FilterBarProps> = ({
   selectedFilter,
   onSelectType,
 }) => {
-  // Массив опций с отображаемыми метками и значениями фильтра
   const filterOptions: { label: string; value: CallFilterType }[] = [
     { label: "Все звонки", value: "" },
     { label: "Входящие", value: "1" },

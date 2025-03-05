@@ -40,6 +40,7 @@
   cursor: pointer;
   &:hover {
     background-color: var(--color-light-blue);
+    transition: all 0.2s ease;
   }
 }
 
@@ -63,6 +64,11 @@
   color: var(--ui-blue);
 }
 
-.active-icon {
+.down-icon {
   color: #adbfdf;
+
+  &:hover {
+    color: var(--ui-blue);
+    transition: color 0.2s ease;
+  }
 }

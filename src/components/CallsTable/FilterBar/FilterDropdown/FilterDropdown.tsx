@@ -1,4 +1,3 @@
-// src/components/CallsTable/FilterBar/FilterDropdown/FilterDropdown.tsx
 import React, { useState, useRef, useEffect } from "react";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 import styles from "./FilterDropdown.module.scss";
@@ -26,7 +25,6 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
-  // Находим выбранную опцию для отображения метки
   const selectedOption =
     options.find((opt) => opt.value === value) || options[0];
 
@@ -40,7 +38,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   };
 
   const handleReset = () => {
-    onChange(options[0].value); // Сброс к значению по умолчанию ("Все звонки")
+    onChange(options[0].value);
   };
 
   useEffect(() => {
@@ -74,10 +72,13 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
               width={10}
               height={6}
               className={styles["active-icon"]}
-              fill="#002CFB"
             />
           ) : (
-            <ArrowDownIcon width={10} height={6} />
+            <ArrowDownIcon
+              width={10}
+              height={6}
+              className={styles["down-icon"]}
+            />
           )}
         </IconWrapper>
       </button>

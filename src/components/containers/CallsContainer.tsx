@@ -1,4 +1,3 @@
-// src/components/CallsContainer/CallsContainer.tsx
 import React, { useRef, useEffect, useState } from "react";
 import CallsTable from "../CallsTable/CallsTable";
 import { normalizeCalls } from "@/utils/normalizeCalls";

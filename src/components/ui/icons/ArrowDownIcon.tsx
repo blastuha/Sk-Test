@@ -19,7 +19,7 @@ const ArrowDownIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({
       <path
         opacity="0.8"
         d="M1.41 0.589966L6 5.16997L10.59 0.589966L12 1.99997L6 7.99997L0 1.99997L1.41 0.589966Z"
-        fill="#ADBFDF"
+        fill="currentColor"
       />
     </svg>
   );
