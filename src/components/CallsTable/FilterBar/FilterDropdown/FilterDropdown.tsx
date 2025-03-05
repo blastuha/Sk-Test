@@ -92,7 +92,9 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
           onClick={handleReset}
         >
           <span>Сбросить фильтры</span>
-          <img src={close} alt="close" className={styles["close-icon"]} />
+          <IconWrapper width={15} height={15}>
+            <img src={close} alt="close" className={styles["close-icon"]} />
+          </IconWrapper>
         </button>
       )}
     </div>
