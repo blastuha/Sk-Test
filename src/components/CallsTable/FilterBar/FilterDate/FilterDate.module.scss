@@ -10,7 +10,7 @@
 }
 
 .filter-date__arrow-button {
-  cursor: pointer;
+  cursor: url("../../../../assets/icons/ui/cursor.svg"), auto;
 }
 
 .filter-date__icon {
@@ -34,7 +34,7 @@
   width: 16px;
   height: 18px;
   color: #adbfdf;
-  cursor: pointer;
+  cursor: url("../../../../assets/icons/ui/cursor.svg"), auto;
 
   &:hover {
     color: #002cfb;
@@ -46,5 +46,5 @@
   font-size: 14px;
   line-height: 16px;
   color: #002cfb;
-  cursor: pointer;
+  cursor: url("../../../../assets/icons/ui/cursor.svg"), auto;
 }
