@@ -72,7 +72,7 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
         {errors.includes("Скрипт не использован") ? (
           <span className={styles["error-text"]}>Скрипт не использован</span>
         ) : (
-          <Badge text="Отлично" variant="excellent" />
+          record && <Badge text="Отлично" variant="excellent" />
         )}
       </td>
       <td className={styles["calls-table__cell"]}>
