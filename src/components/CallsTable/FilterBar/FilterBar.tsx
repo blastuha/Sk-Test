@@ -3,6 +3,7 @@ import styles from "./FilterBar.module.scss";
 import FilterDropdown from "./FilterDropdown/FilterDropdown";
 import { CallFilterType } from "@/models/call/callFilterType";
 import FilterDate from "./FilterDate/FilterDate";
+import { FILTER_OPTIONS } from "@/constants";
 
 interface FilterBarProps {
   selectedFilter: CallFilterType;
@@ -15,16 +16,10 @@ const FilterBar: React.FC<FilterBarProps> = ({
   onSelectType,
   onDateChange,
 }) => {
-  const filterOptions: { label: string; value: CallFilterType }[] = [
-    { label: "Все звонки", value: "" },
-    { label: "Входящие", value: "1" },
-    { label: "Исходящие", value: "0" },
-  ];
-
   return (
     <div className={styles["calls-filter-bar"]}>
       <FilterDropdown
-        options={filterOptions}
+        options={FILTER_OPTIONS}
         value={selectedFilter}
         onChange={onSelectType}
       />

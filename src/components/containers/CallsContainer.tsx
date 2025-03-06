@@ -4,48 +4,18 @@ import { normalizeCalls } from "@/utils/normalizeCalls";
 import { useGetCallsInfinite } from "@/hooks/useGetCalls";
 import FilterBar from "../CallsTable/FilterBar/FilterBar";
 import { CallFilterType } from "@/models/call/callFilterType";
-
-const today = new Date();
-const formattedToday = today.toISOString().slice(0, 10);
-
-// Функция для вычисления даты начала в зависимости от выбранного периода
-const calculateStartDate = (period: string): string => {
-  const date = new Date();
-  switch (period) {
-    case "3 дня":
-      date.setDate(date.getDate() - 2); // включая сегодня: получаем 3 дня
-      break;
-    case "Неделя":
-      date.setDate(date.getDate() - 6);
-      break;
-    case "Месяц":
-      date.setMonth(date.getMonth() - 1);
-      break;
-    case "Год":
-      date.setFullYear(date.getFullYear() - 1);
-      break;
-    default:
-      // Если выбрано "Указать даты" или неизвестный период,
-      // можно оставить дефолтное значение или реализовать отдельную логику
-      break;
-  }
-  return date.toISOString().slice(0, 10);
-};
-
-// Функция для преобразования даты из формата "ДД.ММ.ГГ" в "YYYY-MM-DD"
-const convertCustomDate = (dateStr: string): string => {
-  const [day, month, year] = dateStr.split(".");
-  return `20${year}-${month}-${day}`;
-};
+import { getInitialDateRange } from "@/utils/getInitialDateRange";
+import { convertCustomDate } from "@/utils/convertCustomDate";
 
 const defaultPeriod = "3 дня";
-const defaultStartDate = calculateStartDate(defaultPeriod);
+const defaultRange = getInitialDateRange(defaultPeriod);
 
 const CallsContainer = () => {
   const [inOut, setInOut] = useState<CallFilterType>("");
+
   const [dateRange, setDateRange] = useState({
-    dateStart: defaultStartDate,
-    dateEnd: formattedToday,
+    dateStart: defaultRange.dateStart,
+    dateEnd: defaultRange.dateEnd,
   });
 
   const {
@@ -79,19 +49,26 @@ const CallsContainer = () => {
     setInOut(value);
   };
 
-  // Обновлённая функция для смены периода дат
   const handleDateChange = (period: string) => {
     if (period.includes(" - ")) {
-      // Если выбран пользовательский диапазон дат
-      const [start, end] = period.split(" - ");
-      setDateRange({
-        dateStart: convertCustomDate(start.trim()),
-        dateEnd: convertCustomDate(end.trim()),
-      });
+      // Если в строке есть точка, то формат ДД.ММ.ГГ
+      if (period.includes(".")) {
+        const [start, end] = period.split(" - ");
+        setDateRange({
+          dateStart: convertCustomDate(start.trim()),
+          dateEnd: convertCustomDate(end.trim()),
+        });
+      } else {
+        // если точки нет, то диапазон уже в формате ISO YYYY-MM-DD
+        const [start, end] = period.split(" - ");
+        setDateRange({
+          dateStart: start.trim(),
+          dateEnd: end.trim(),
+        });
+      }
     } else {
-      // Для предустановленных периодов
-      const newStartDate = calculateStartDate(period);
-      setDateRange({ dateStart: newStartDate, dateEnd: formattedToday });
+      const newRange = getInitialDateRange(period);
+      setDateRange(newRange);
     }
   };
 

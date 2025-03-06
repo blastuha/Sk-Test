@@ -4,6 +4,7 @@ import styles from "./DateDropdown.module.scss";
 import CalendarIcon from "@/components/ui/icons/CalendarIcon";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 import { dateValidation } from "@/utils/dateValidation";
+import { DATE_PRESETS } from "@/constants";
 
 interface DateDropdownProps {
   onSelect: (value: string) => void;
@@ -14,7 +15,6 @@ const DateDropdown: React.FC<DateDropdownProps> = ({
   onSelect,
   currentValue,
 }) => {
-  const options = ["3 дня", "Неделя", "Месяц", "Год"];
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
@@ -29,7 +29,7 @@ const DateDropdown: React.FC<DateDropdownProps> = ({
 
   return (
     <ul className={styles["date-dropdown"]}>
-      {options.map((option) => (
+      {DATE_PRESETS.map((option) => (
         <li
           key={option}
           className={`${styles["date-dropdown__option"]} ${
