@@ -4,7 +4,7 @@
   right: -10px;
   margin-top: 8px;
   width: 204px;
-  background-color: #ffffff;
+  background-color: var(--color-white);
   border: 1px solid #e8e8e8;
   border-radius: 4px;
   box-shadow: 0px 0px 26px 0px #e9edf3cc;
@@ -16,7 +16,7 @@
 }
 
 .date-dropdown__option {
-  color: #899cb1;
+  color: var(--ui-text-header);
   height: 40px;
   padding: 8px 12px;
   font-size: 14px;
@@ -27,15 +27,15 @@
   justify-content: space-between;
 
   &:hover {
-    color: #2b2d33;
-    background-color: #f1f4f9;
+    color: var(--color-gray-dark);
+    background-color: var(--color-gray-bg);
     transition: all 0.2s ease;
   }
 }
 
 .date-dropdown__option--active {
-  background-color: #f1f4f9;
-  color: #002cfb;
+  background-color: var(--color-gray-bg);
+  color: var(--ui-blue);
 }
 
 .date-dropdown__custom-label {
@@ -43,7 +43,7 @@
   padding: 8px 12px;
   font-size: 14px;
   line-height: 28px;
-  color: #122945;
+  color: var(--ui-text);
   cursor: default;
 }
 
@@ -53,7 +53,7 @@
   justify-content: space-between;
   height: 40px;
   padding: 8px 12px;
-  background-color: #ffffff;
+  background-color: var(--color-white);
   border-radius: 4px;
 }
 
@@ -61,16 +61,16 @@
   width: 60px;
   font-size: 14px;
   border-radius: 4px;
-  color: #adbfdf;
+  color: var(--ui-icon);
   text-align: center;
 }
 
 .date-dropdown__custom-picker input::placeholder {
-  color: #adbfdf;
+  color: var(--ui-icon);
 }
 
 .date-dropdown__separator {
-  color: #adbfdf;
+  color: var(--ui-icon);
 }
 
 .date-dropdown__apply-button {
@@ -83,10 +83,10 @@
 .date-dropdown__icon {
   width: 100%;
   height: 100%;
-  color: #adbfdf;
+  color: var(--ui-icon); // #adbfdf
 
   &:hover {
-    color: #002cfb;
+    color: var(--ui-blue); // #002cfb
     transition: all 0.2s ease;
   }
 }
