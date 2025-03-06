@@ -1,8 +1,7 @@
 import axios from "axios";
 
-//todo: сделать через env
-const API_URL = "https://api.skilla.ru/mango";
-const TOKEN = "testtoken";
+const API_URL = import.meta.env.VITE_API_URL;
+const TOKEN = import.meta.env.VITE_API_TOKEN;
 
 export const apiClient = axios.create({
   baseURL: API_URL,
