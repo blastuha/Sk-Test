@@ -28,7 +28,6 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
     partnership_id,
   } = call;
 
-  // Состояние, отслеживающее, наведен ли курсор на строку
   const [isHovered, setIsHovered] = useState(false);
 
   return (
