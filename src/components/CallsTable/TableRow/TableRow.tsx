@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./TableRow.module.scss";
 import { Call } from "@/models";
 import { formatDateToTime } from "@/utils/formatDateToTime";
@@ -28,8 +28,16 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
     partnership_id,
   } = call;
 
+  // Состояние, отслеживающее, наведен ли курсор на строку
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <tr key={id} className={styles["calls-table__row"]}>
+    <tr
+      key={id}
+      className={styles["calls-table__row"]}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <td className={styles["calls-table__cell"]}>
         <IconWrapper width={24} height={24}>
           <CallTypeIcon
@@ -64,13 +72,19 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
         )}
       </td>
       <td className={styles["calls-table__cell"]}>
-        {record && (
-          <AudioMessage
-            time={formatDuration(time)}
-            record={record}
-            partnershipId={partner_data?.id || partnership_id}
-          />
-        )}
+        {record ? (
+          isHovered ? (
+            <AudioMessage
+              time={formatDuration(time)}
+              record={record}
+              partnershipId={partner_data?.id || partnership_id}
+            />
+          ) : (
+            <span className={styles["call-duration"]}>
+              {formatDuration(time)}
+            </span>
+          )
+        ) : null}
       </td>
     </tr>
   );
