@@ -6,17 +6,19 @@ import FilterBar from "../CallsTable/FilterBar/FilterBar";
 import { CallFilterType } from "@/models/call/callFilterType";
 import { getInitialDateRange } from "@/utils/getInitialDateRange";
 import { convertCustomDate } from "@/utils/convertCustomDate";
+import { Order, SortBy } from "@/constants";
 
 const defaultPeriod = "3 дня";
 const defaultRange = getInitialDateRange(defaultPeriod);
 
 const CallsContainer = () => {
   const [inOut, setInOut] = useState<CallFilterType>("");
-
   const [dateRange, setDateRange] = useState({
     dateStart: defaultRange.dateStart,
     dateEnd: defaultRange.dateEnd,
   });
+  const [sortBy, setSortBy] = useState<SortBy | undefined>(undefined);
+  const [order, setOrder] = useState<Order | undefined>(undefined);
 
   const {
     data,
@@ -25,7 +27,13 @@ const CallsContainer = () => {
     isFetchingNextPage,
     isLoading,
     isError,
-  } = useGetCallsInfinite(dateRange.dateStart, dateRange.dateEnd, inOut);
+  } = useGetCallsInfinite(
+    dateRange.dateStart,
+    dateRange.dateEnd,
+    inOut,
+    sortBy,
+    order
+  );
 
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
@@ -51,7 +59,6 @@ const CallsContainer = () => {
 
   const handleDateChange = (period: string) => {
     if (period.includes(" - ")) {
-      // Если в строке есть точка, то формат ДД.ММ.ГГ
       if (period.includes(".")) {
         const [start, end] = period.split(" - ");
         setDateRange({
@@ -59,7 +66,6 @@ const CallsContainer = () => {
           dateEnd: convertCustomDate(end.trim()),
         });
       } else {
-        // если точки нет, то диапазон уже в формате ISO YYYY-MM-DD
         const [start, end] = period.split(" - ");
         setDateRange({
           dateStart: start.trim(),
@@ -72,6 +78,11 @@ const CallsContainer = () => {
     }
   };
 
+  const handleSortChange = (newSortBy: SortBy, newOrder: Order) => {
+    setSortBy(newSortBy);
+    setOrder(newOrder);
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       <FilterBar
@@ -80,22 +91,20 @@ const CallsContainer = () => {
         onDateChange={handleDateChange}
       />
 
-      {isLoading ? (
-        <div>Загрузка звонков...</div>
-      ) : isError ? (
-        <div>Ошибка при получении звонков</div>
-      ) : (
-        <>
-          <CallsTable calls={normalizeCalls(allCalls)} />
-          <div ref={loadMoreRef} style={{ height: "50px" }}>
-            {isFetchingNextPage
-              ? "Загрузка..."
-              : hasNextPage
-              ? "Загрузить ещё"
-              : ""}
-          </div>
-        </>
-      )}
+      <CallsTable
+        calls={normalizeCalls(allCalls)}
+        onSortChange={handleSortChange}
+        isLoading={isLoading}
+        isError={isError}
+      />
+
+      <div ref={loadMoreRef} style={{ height: "50px" }}>
+        {isFetchingNextPage
+          ? "Загрузка..."
+          : hasNextPage
+          ? "Загрузить ещё"
+          : ""}
+      </div>
     </div>
   );
 };

@@ -2,9 +2,9 @@
   width: 100%;
 }
 
-.table-header__cell.has-icon {
-  cursor: url("../../../assets//icons/ui/cursor.svg"), pointer;
-}
+// .table-header__cell.has-icon {
+//   cursor: url("../../../assets//icons/ui/cursor.svg"), pointer;
+// }
 
 .table-header__row {
   width: 100%;
@@ -36,12 +36,7 @@
   gap: 4px;
   font-weight: 400;
   font-size: 14px;
-  color: rgba(94, 119, 147, 0.87); // в макете указана прозрачность 87%
-}
-
-.table-header__icon {
-  width: 10px;
-  height: 6px;
+  color: rgba(94, 119, 147, 0.87);
 }
 
 /* Фиксированные ширины */
@@ -78,10 +73,14 @@
 
 /* Длительность */
 .table-header__cell:nth-child(7) {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   width: 100%;
   padding-right: 40px;
   position: relative;
   .table-header__text {
-    justify-content: flex-end;
+    width: fit-content;
+    cursor: url("../../../assets//icons/ui/cursor.svg"), pointer;
   }
 }

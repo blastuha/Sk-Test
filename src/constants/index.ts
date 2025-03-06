@@ -11,6 +11,16 @@ export const CALLS_TABLE_HEADERS = [
   "Длительность",
 ];
 
+export enum SortBy {
+  Date = "date",
+  Duration = "duration",
+}
+
+export enum Order {
+  Asc = "ASC",
+  Desc = "DESC",
+}
+
 // Тип звонка входящий, исходящий
 export enum InOutCallType {
   Incoming = 1,
