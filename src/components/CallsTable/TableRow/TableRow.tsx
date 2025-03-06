@@ -30,6 +30,8 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
 
   const [isHovered, setIsHovered] = useState(false);
 
+  const [audioPlaying, setAudioPlaying] = useState(false);
+
   return (
     <tr
       key={id}
@@ -72,11 +74,12 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
       </td>
       <td className={styles["calls-table__cell"]}>
         {record ? (
-          isHovered ? (
+          isHovered || audioPlaying ? (
             <AudioMessage
               time={formatDuration(time)}
               record={record}
               partnershipId={partner_data?.id || partnership_id}
+              onPlayingChange={setAudioPlaying}
             />
           ) : (
             <span className={styles["call-duration"]}>

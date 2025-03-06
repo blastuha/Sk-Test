@@ -1,5 +1,4 @@
-// AudioMessage.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./AudioMessage.module.scss";
 import playIcon from "@assets/icons/ui/audio/play.svg";
 import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
@@ -13,12 +12,14 @@ interface AudioMessageProps {
   time: string;
   record: string;
   partnershipId: string;
+  onPlayingChange: (playing: boolean) => void;
 }
 
 const AudioMessage: React.FC<AudioMessageProps> = ({
   time,
   record,
   partnershipId,
+  onPlayingChange,
 }) => {
   const [visible, setVisible] = useState<boolean>(true);
 
@@ -34,7 +35,11 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
     handleLoadedMetadata,
   } = useAudioPlayer({ record, partnershipId });
 
-  // tooltip
+  useEffect(() => {
+    onPlayingChange(isPlaying);
+  }, [isPlaying, onPlayingChange]);
+
+  // Tooltip для прогресс-бара
   const [hoverTime, setHoverTime] = useState<number>(0);
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const [tooltipX, setTooltipX] = useState<number>(0);
@@ -79,14 +84,14 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
     <div className={styles["audio-message"]}>
       <span className={styles["audio-message__time"]}>{time}</span>
       <div className={styles["audio-message__player"]}>
-        <IconWrapper width={24} height={24}>
-          <button
-            className={`${styles.button} ${styles["button--play"]}`}
-            onClick={handlePlayPause}
-          >
+        <button
+          onClick={handlePlayPause}
+          className={`${styles.button} ${styles["button--play"]}`}
+        >
+          <IconWrapper width={24} height={24}>
             {isPlaying ? <PauseIcon /> : <img src={playIcon} alt="Play" />}
-          </button>
-        </IconWrapper>
+          </IconWrapper>
+        </button>
 
         <div
           className={styles["audio-message__progress-bar"]}
@@ -123,6 +128,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
             onClick={() => {
               handleCancel();
               setVisible(false);
+              onPlayingChange(false);
             }}
             className={`${styles.button} ${styles["button--cancel"]}`}
           >
@@ -137,6 +143,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({
           src={audioUrl}
           onEnded={() => {
             setVisible(true);
+            onPlayingChange(false);
           }}
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
