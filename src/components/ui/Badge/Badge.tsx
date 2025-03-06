@@ -9,7 +9,11 @@ const Badge = ({
   text: string;
   variant: BadgeVariant;
 }) => {
-  return <span className={`${styles.badge} ${styles[variant]}`}>{text}</span>;
+  return (
+    <div className={`${styles.badge} ${styles[variant]}`}>
+      <span>{text}</span>
+    </div>
+  );
 };
 
 export default Badge;

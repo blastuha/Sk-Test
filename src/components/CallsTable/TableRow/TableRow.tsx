@@ -8,6 +8,7 @@ import IconWrapper from "@/components/containers/IconWrapper/IconWrapper";
 import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
 import { InOutCallType, CallStatus } from "@/constants";
 import AudioMessage from "@/components/ui/AudioMessage/AudioMessage";
+import Badge from "@/components/ui/Badge/Badge";
 
 interface TableRowProps {
   call: Call;
@@ -68,8 +69,10 @@ const TableRow: React.FC<TableRowProps> = ({ call }) => {
         <span>{source}</span>
       </td>
       <td className={styles["calls-table__cell"]}>
-        {errors.includes("Скрипт не использован") && (
+        {errors.includes("Скрипт не использован") ? (
           <span className={styles["error-text"]}>Скрипт не использован</span>
+        ) : (
+          <Badge text="Отлично" variant="excellent" />
         )}
       </td>
       <td className={styles["calls-table__cell"]}>
